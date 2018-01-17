@@ -99,7 +99,66 @@ const OrderBasket = (props) => {
     );
 };
 
-class App extends React.Component {
+const CakeTable = (props) => {
+
+    const style = {
+        width: "100%",
+        height: "100px",
+        backgroundColor: "white",
+        marginBottom: "10px",
+        display: "flex",
+        flexFlow: "row",
+        border: "1px solid #888"
+
+    };
+
+    const cakeName = {
+        width: "100%",
+        height: "100%",
+        textAlign: "center",
+        lineHeight: "90px",
+        overflow: "hidden", borderRight: "1px solid #444"
+    }
+
+    const cakeDesc = {
+        width: "100%", height: "100%",
+        textAlign: "center",
+        lineHeight: "90px",
+        fontSize: "14px",
+        overflow: "hidden", borderRight: "1px solid #444"
+    }
+
+    const cakePrice = {
+        width: "100%", height: "100%",
+        textAlign: "center",
+        lineHeight: "90px", borderRight: "1px solid #444"
+    }     
+
+    const cakeList = [...props.cakes];
+    const list = cakeList.map((cake, index) => {
+        return (
+            <div key={index}>
+                <div style={{ height: "10px", width: "100%", backgroundColor: "#2d87ff" }}></div>
+                <div style={style}>
+                    <p style={cakeName}>
+                        {cake.CakeName}
+                    </p>
+                    <p style={cakeDesc}>
+                        {cake.CakeDescription}
+                    </p>
+                    <p style={cakePrice}>
+                        £{cake.Price.toFixed(2)}
+                    </p>
+                    <button className="btn btn-default" onClick={(event) => props.addtoshopping(cake)} key={index} style={{ fontSize: "14px", margin: "25px", height: "50px", width: "50px" }}>Add</button>
+                </div>
+            </div>
+        );
+    });
+
+    return <div>{ list }</div>;
+}
+
+class Shop extends React.Component {
     state = {
         shoppingList: [],
         cakes: {},
@@ -178,67 +237,12 @@ class App extends React.Component {
 
     render() {
 
-        const style = {
-            width: "100%",
-            height: "100px",
-            backgroundColor: "white",
-            marginBottom: "10px",
-            display: "flex",
-            flexFlow: "row",
-            border: "1px solid #888"
-
-        };
-
-        const cakeName = {
-            width: "100%",
-            height: "100%",
-            textAlign: "center",
-            lineHeight: "90px",
-            overflow: "hidden", borderRight: "1px solid #444" 
-    }
-
-        const cakeDesc = {
-            width: "100%", height: "100%",
-            textAlign: "center",
-            lineHeight: "90px",
-            fontSize: "14px",
-            overflow: "hidden", borderRight: "1px solid #444"
-        }
-
-        const cakePrice = {
-            width: "100%", height: "100%",
-            textAlign: "center",
-            lineHeight: "90px", borderRight: "1px solid #444"
-        }
-
-        const cakeArray = [...this.state.cakes];
-
-        const result = cakeArray.map((cake, index) => {
-            return (
-                <div key={index}>
-                    <div style={{ height: "10px", width: "100%", backgroundColor: "#2d87ff"}}></div>
-                    <div style={style}>
-                        <p style={cakeName}>
-                            {cake.CakeName}
-                        </p>
-                        <p style={cakeDesc}>
-                            {cake.CakeDescription}
-                        </p>
-                        <p style={cakePrice}>
-                            £{cake.Price.toFixed(2)}
-                        </p>
-                        <button className="btn btn-default" onClick={(event) => this.AddToShoppingListHandler(cake)} key={index} style={{fontSize: "14px", margin: "25px", height: "50px", width: "50px" }}>Add</button>
-                    </div>
-                </div>
-            );
-        });
-
-        let openCart = null;
+        let openBasket = null;
         let order = null;
         let orderCategories = null;
 
         if (this.state.isBasketOpen) {
-            openCart = <OrderBasket
+            openBasket = <OrderBasket
                 shoppinglist={this.state.shoppingList}
                 removefrombasket={this.RemoveFromShoppingListHandler}
                 isbasketempty={this.state.isBasketEmpty}
@@ -252,13 +256,13 @@ class App extends React.Component {
                         Open Basket ({this.state.shoppingList.length})</div>
                 );
             }
-            openCart = <OpenOrderSummary />;
+            openBasket = <OpenOrderSummary />;
         }   
 
         if (this.state.showOrderSummary) {
             order = <OrderSummary shoppinglist={this.state.shoppingList} paybycash={this.PayByCashHandler} paybycard={this.PayByCardHandler} totalprice={this.state.totalPrice} />;
         } else {
-            order = <div>{result}</div>;
+            order = <div><CakeTable cakes={this.state.cakes} addtoshopping={this.AddToShoppingListHandler}/></div>;
             orderCategories = (<div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Product</h4>
                             <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Description</h4>
                             <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Price</h4>
@@ -269,10 +273,18 @@ class App extends React.Component {
             <div style={{paddingRight: "10px", paddingLeft: "10px", backgroundColor:"transparent", marginTop: "20px"}}>
                 {orderCategories}
                 {order}
-                {openCart}
+                {openBasket}
             </div>
         );
     }
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+class App extends React.Component {
+    render() {
+        return (
+            <Shop/>
+            );
+    }
+}
+
+ReactDOM.render(<Shop />, document.getElementById("root"));
