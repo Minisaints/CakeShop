@@ -7,4 +7,4 @@ Database is SQL server 2016. Entity Framework was used along with migrations to 
 
 The project is a online shop built with MVC to buy cakes with a functioning collapsible shopping basket. 
 
-The shopping basket can be populated with cakes, with total prices and ability to remove cakes. Checkout is disabled if the basket is empty. Most of the styling is inline css, however, I prefer using css-modules in a full project.
+The shopping basket can be populated with cakes, with total prices and ability to remove cakes. Checkout is disabled if the basket is empty. Most of the styling is inlined css, however, I prefer using css-modules in a full project.
