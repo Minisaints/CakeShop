@@ -230,21 +230,21 @@
         }
 
         let order = null;
+        let orderSum = null
 
         if (this.state.showOrderSummary) {
             order = <OrderSummary />;
         } else {
             order = <div>{result}</div>;
+            orderSum = (<div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Product</h4>
+                            <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Description</h4>
+                            <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Price</h4>
+                            <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "50%" }}></h4></div>);
         }
 
         return (
             <div style={{paddingRight: "10px", paddingLeft: "10px", backgroundColor:"transparent", marginTop: "20px"}}>
-                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}>
-                    <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Product</h4>
-                    <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Description</h4>
-                    <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Price</h4>
-                    <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "50%" }}></h4>
-                </div>
+                {orderSum}
                 {order}
                 {openCart}
             </div>
