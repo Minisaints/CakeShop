@@ -108,4 +108,5 @@ C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\bin\Autofac.dll
 C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\bin\Autofac.Integration.WebApi.dll
 C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\bin\Autofac.xml
 C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\bin\Autofac.Integration.WebApi.xml
-C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.csprojResolveAssemblyReference.cache
+C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\bin\System.Web.Optimization.React.dll
+C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\bin\System.Web.Optimization.React.xml

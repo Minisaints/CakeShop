@@ -1,4 +1,5 @@
 ﻿using System.Web.Optimization;
+using System.Web.Optimization.React;
 
 namespace EKM_Project
 {
@@ -19,14 +20,13 @@ namespace EKM_Project
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/react").Include(
-                    "~/Scripts/react.development.js",
-                    "~/Scripts/react-dom.development.js"
+                    "~/Scripts/react.production.min.js",
+                    "~/Scripts/react-dom.production.min.js"
                         ));
 
-            bundles.Add(new ScriptBundle("~/bundles/components").Include(
+            bundles.Add(new BabelBundle("~/bundles/components").Include(
                         "~/Scripts/components/cake.jsx"
                         ));
-
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
