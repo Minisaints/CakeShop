@@ -1,0 +1,114 @@
+﻿body {
+    background-color: #888;
+    padding: 0px;
+    margin: 0px;
+}
+
+.navBar {
+    height: 60px;
+    width: 100%;
+    background-color: #246CCC;
+    border-radius: 0px;
+}
+
+.returnBtn {
+    float: right;
+    margin-top: -43px;
+    margin-right: 20px;
+}
+
+.logoText {
+    font-family: "Calibri";
+    margin-top: 12px;
+    margin-left: 20px;
+    font-size: 30px;
+    color: white;
+    
+}
+
+.sidebar {
+    height:100%;
+    width: 150px;
+    background-color: #444;
+}
+
+.nav-pills {
+    width: inherit;
+
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.nav {
+    padding-top: 0px;
+
+}
+
+.nav-pills > li > a {
+    border-radius: 0px;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #ffffff;
+    background-color: #3C597F;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #44648F;
+    color: #fff;
+}
+
+.content {
+    width: 100%;
+    background-color: #fff;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 3px;
+    flex-flow: column;
+}
+
+
+.nav-stacked > li + li {
+    margin-top: 0px;
+    margin-left: 0;
+}
+
+.sideBarCont {
+    display: flex;
+    flex-flow: row;
+    height: auto;
+    align-items:flex-start;
+}
+
+@media (max-width: 410px) {
+    .logoText {
+        margin-top: 19px;
+        font-size: 20px;
+        margin-left: 10px;
+    }
+
+    .returnBtn {
+        margin-top: -40px;
+    }
+}
+
+.table {
+    margin-bottom: 0px;
+}
+
+th {
+    background-color: #246CCC;
+    color: white;
+    font-weight: normal;
+}
+
+.form-horizontal {
+    padding: 10px;
+}
+
+.panel {
+    margin-bottom: 0px;
+}

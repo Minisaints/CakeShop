@@ -1,0 +1,72 @@
+﻿@model EKM_Project.Models.Cake
+@{
+    ViewBag.Title = "Edit Cake";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="AdminPage">
+    <div class="navBar">
+        <h2 class="logoText">Administration</h2>
+        <button class="btn btn-default returnBtn">@Html.ActionLink("Return to Front-end", "Index", "Home")</button>
+    </div>
+
+    <div class="sideBarCont">
+        <div class="sidebar">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" >@Html.ActionLink("Add a Cake", "Index")</li>
+                <li role="presentation" class="active">@Html.ActionLink("Edit a Cake", "Edit")</li>
+            </ul>
+        </div>
+        <div class="content">
+            @using (Html.BeginForm())
+            {
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <div class="alert alert-info" role="alert">
+                                <a href="#" class="alert-link">All fields are required!</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CakeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CakeName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CakeName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CakeDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CakeDescription, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CakeDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                            <button class="btn btn-default">@Html.ActionLink("Back to List", "Edit", "Admin")</button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
