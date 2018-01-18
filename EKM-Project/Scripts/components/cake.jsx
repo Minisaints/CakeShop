@@ -4,6 +4,35 @@
         Checkout</button>;
 }
 
+const Customer = (props) => {
+    const style = {
+        width: "60%",
+        height: "350px",
+        margin: "auto",
+        backgroundColor: "#fff", textAlign: "center", color: "#000", border: "1px solid #444", overflow: "auto"
+    }
+
+    return (<div style={style}>
+                <div style={{ textAlign: "center", backgroundColor: "#246CCC", color: "#fff", position: "sticky", top: "0", width: "auto", height: "50px", fontSize: "17px", lineHeight: "45px" }}>Customer Details</div>
+                <CustomerForm submitcustomerdetails={props.submitCustomerDetails}/>
+            </div>);
+}
+
+const CustomerForm = (props) => {
+
+    return (
+        <div style={{ height: "85%", display: "flex", justifyContent: "" }}>
+            <form onSubmit={props.submitcustomerdetails} style={{ width: "100%", display: "flex", flexFlow: "column", alignItems: "center", justifyContent: "center" }}>
+                First name <input className="form-control" type="text" name="firstname" />
+                Last name <input className="form-control" type="text" name="lastname" />
+                Date of Birth <input className="form-control" type="text" name="dateofbirth" />
+                Address <input className="form-control" type="text" name="address" />
+                <input style={{ marginTop: "10px" }} className="btn btn-warning" type="submit" value="Confirm Details" />
+            </form>
+        </div>
+    );
+}
+
 const OrderSummary = (props) => {
 
     const shoppingList = [...props.shoppinglist];
@@ -197,13 +226,12 @@ class Shop extends React.Component {
         totalPrice: 0.00,
         showOrderSummary: false,
         isBasketEmpty: true,
-        hasPaidByCard: false,
-        paymentDetails: {
-            holderName: null,
-            cardNumber: null,
-            expiryDate: null,
-            csc: null
-        },
+        cardPaymentMethod: false,
+        showCakeTable: true,
+        paymentDetails: {},
+        showPaymentForm: false,
+        customerDetails: {},
+        showCustomerForm: false,
         submitOrder: false
     }
 
@@ -252,7 +280,8 @@ class Shop extends React.Component {
     CheckoutHandler = () => {
         this.setState({
             showOrderSummary: true,
-            hasPaidByCard: false
+            cardPaymentMethod: false,
+            showCakeTable: false
 
         });
     }
@@ -267,7 +296,8 @@ class Shop extends React.Component {
     PayByCardHandler = () => {
         this.setState({
             showOrderSummary: false,
-            hasPaidByCard: true
+            showCustomerForm: true,
+            showCakeTable: false
         });
 
         console.log("Paid by card");
@@ -292,6 +322,21 @@ class Shop extends React.Component {
         });
     }
 
+    SubmitCustomerDetailsHandler = (event) => {
+        event.preventDefault();
+        console.log("Customer details form Submitted");
+        this.setState({
+            customerDetails: {
+                firstName: event.target.firstname.value,
+                lastName: event.target.lastname.value,
+                dateOfBirth: event.target.dateofbirth.value,
+                address: event.target.address.value
+            },
+            showPaymentForm: true,
+            showCustomerForm: false
+    });
+    }
+
     render() {
 
         if (this.state.submitOrder) {
@@ -311,10 +356,14 @@ class Shop extends React.Component {
 
             this.setState({
                 submitOrder: false,
-                hasPaidByCard: false,
+                cardPaymentMethod: false,
+                showCakeTable: true,
                 isBasketOpen: false,
+                isBasketEmpty: true,
                 paymentDetails: {},
                 shoppingList: [],
+                customerDetails: {},
+                showPaymentForm: false,
                 totalPrice: 0.00
             });
         }
@@ -343,15 +392,16 @@ class Shop extends React.Component {
 
         if (this.state.showOrderSummary) {
             order = <OrderSummary shoppinglist={this.state.shoppingList} paybycash={this.PayByCashHandler} paybycard={this.PayByCardHandler} totalprice={this.state.totalPrice} />;
-        } else if (this.state.hasPaidByCard) {
-            order = <Payment submitorder={this.SubmitOrderHandler} />;
-        } else {
-
+        } else if (this.state.showCustomerForm) {
+            order = <Customer submitCustomerDetails={this.SubmitCustomerDetailsHandler}/>;
+        } else if(this.state.showCakeTable) {
             order = <div><CakeTable cakes={this.state.cakes} addtoshopping={this.AddToShoppingListHandler} /></div>;
             orderCategories = (<div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Product</h4>
                 <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Description</h4>
                 <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Price</h4>
                 <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "50%" }}></h4></div>);
+        } else if (this.state.showPaymentForm) {
+            order = <Payment submitorder={this.SubmitOrderHandler} />;
         }
 
         return (
