@@ -65,7 +65,8 @@ const OrderBasket = (props) => {
                     <p >{cake.CakeName}</p>
                 </div>
                 <div style={{ width: "100%" }}>
-                    <p>£{cake.Price.toFixed(2)}</p><button
+                    <p>£{cake.Price.toFixed(2)}</p>
+                    <button
                         onClick={(event) => props.removefrombasket(index, cake)}
                         style={{ border: "none", outline: "none", borderRadius: "5px", color: "#fff", backgroundColor: "red", float: "right", marginTop: "-28px", marginRight: "4px", marginBottom: "3px", height: "20px", width: "20px", textAlign: "center", fontSize: "9px" }}>
                         <strong>X</strong>
@@ -90,7 +91,7 @@ const OrderBasket = (props) => {
 
     return (
         <div style={{ marginBottom: "10px", width: "250px", height: "330px", border: "1px solid #444", backgroundColor: "white", position: "absolute", right: "10px", bottom: "0", overflow: "auto", overflowX: "hidden" }}>
-            <div onClick={props.togglebasket} style={{ lineHeight: "25px", fontSize: "15px", height: "30px", cursor: "pointer", position: "sticky", width: "inherit", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", borderBottom: "1px solid #444", top: "0" }}>Shopping Basket</div>
+            <div onClick={props.togglebasket} style={{ lineHeight: "38px", fontSize: "16px", height: "40px", cursor: "pointer", position: "sticky", width: "inherit", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", borderBottom: "1px solid #444", top: "0" }}>Shopping Basket</div>
             <div style={{ fontSize: "13px", display: "flex", textAlign: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ width: "100%", borderRight: "1px solid #444" }}>Product</h4><h4 style={{ width: "100%" }}>Price</h4></div>
             {noItems}
             <div style={{ backgroundColor: "#fff", borderTop: "1px solid #444", width: "100%", textAlign: "right", fontSize: "14px", paddingRight: "5px", bottom: "35px", position: "sticky" }} >Total Price: £{props.totalprice.toFixed(2)}</div>
@@ -333,7 +334,7 @@ class Shop extends React.Component {
         } else {
             const OpenOrderSummary = () => {
                 return (
-                    <div onClick={this.ToggleBasketHandler} style={{ lineHeight: "45px", fontSize: "18px", cursor: "pointer", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", border: "1px solid #444", width: "160px", height: "50px", position: "absolute", right: "10px", bottom: "10px" }}>
+                    <div onClick={this.ToggleBasketHandler} style={{ lineHeight: "38px", fontSize: "18px", cursor: "pointer", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", border: "1px solid #444", width: "160px", height: "40px", position: "absolute", right: "10px", bottom: "10px" }}>
                         Open Basket ({this.state.shoppingList.length})</div>
                 );
             }

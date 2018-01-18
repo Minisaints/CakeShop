@@ -7,7 +7,7 @@
 <div class="AdminPage">
     <div class="navBar">
         <h2 class="logoText">Administration</h2>
-        <button class="btn btn-default returnBtn">@Html.ActionLink("Return to Front-end", "Index", "Home")</button>
+        @Html.ActionLink("Return to Front-end", "Index", "Home", new { }, new { @class = "btn btn-default returnBtn" })
     </div>
 
     <div class="sideBarCont">
@@ -18,7 +18,7 @@
             </ul>
         </div>
         <div class="content">
-            @Html.ActionLink("Add a Cake", "Add", "", new {@class = "btn btn-primary addCakeBtn"})
+            @Html.ActionLink("Add a Cake", "Add", "Admin", "", new {@class = "btn btn-primary addCakeBtn"})
             <table id="your_cakes" class="table table-bordered table-hover">
                 <thead>
                 <tr>
@@ -40,8 +40,8 @@
                         <td>@Html.DisplayFor(modelItem => item.CakeDescription)</td>
                         <td>£@Html.DisplayFor(modelItem => item.Price)</td>
                         <td>
-                            <button class="btn btn-default">@Html.ActionLink("Edit", "EditCake", new {id = item.Id})</button>
-                            <button class="btn btn-default">@Html.ActionLink("Delete", "Delete", new {id = item.Id})</button>
+                            @Html.ActionLink("Edit", "EditCake", "Admin", new { id = item.Id }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Delete", "Delete", "Admin", new { id = item.Id }, new { @class = "btn btn-default" })
                         </td>
                     </tr>
                 }

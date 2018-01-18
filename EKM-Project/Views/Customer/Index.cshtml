@@ -7,8 +7,7 @@
 <div class="AdminPage">
     <div class="navBar">
         <h2 class="logoText">Administration</h2>
-        <button class="btn btn-default returnBtn">@Html.ActionLink("Return to Front-end", "Index", "Home")</button>
-    </div>
+        @Html.ActionLink("Return to Front-end", "Index", "Home", new { }, new { @class = "btn btn-default returnBtn" })    </div>
 
     <div class="sideBarCont">
         <div class="sidebar">
@@ -41,8 +40,8 @@
                         <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
                         <td>@Html.DisplayFor(modelItem => item.Address)</td>
                         <td>
-                            <button class="btn btn-default">@Html.ActionLink("Edit", "EditCustomer", new { id = item.Id })</button>
-                            <button class="btn btn-default">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</button>
+                            @Html.ActionLink("Edit", "EditCustomer", "Customer", new { id = item.Id }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Delete", "Delete", "Customer", new { id = item.Id }, new { @class = "btn btn-default" })
                         </td>
                     </tr>
                 }

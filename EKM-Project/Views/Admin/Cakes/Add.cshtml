@@ -8,7 +8,8 @@
 <div class="AdminPage">
     <div class="navBar">
         <h2 class="logoText">Administration</h2>
-        <button class="btn btn-default returnBtn">@Html.ActionLink("Return to Front-end", "Index", "Home")</button>
+        @Html.ActionLink("Return to Front-end", "Index", "Home", new { }, new { @class = "btn btn-default returnBtn" })
+
     </div>
 
     <div class="sideBarCont">
@@ -58,7 +59,7 @@
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
                                         <input type="submit" value="Add" class="btn btn-primary" />
-                                        <button class="btn btn-default">@Html.ActionLink("Back to List", "Index", "Admin")</button>
+                                        @Html.ActionLink("Back to List", "Index", "Admin", new { }, new { @class = "btn btn-default" })
 
                                     </div>
                                 </div>
