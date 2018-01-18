@@ -224,3 +224,8 @@ E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\JavaScrip
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\MsieJavaScriptEngine.resources.dll
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.dll
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.pdb
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\AutoMapper.dll
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\AutoMapper.xml
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.AddOrder.resources
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.ChangedCustomerType.resources
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.NameChangePrice.resources

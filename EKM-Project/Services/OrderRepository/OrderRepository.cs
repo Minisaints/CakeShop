@@ -12,9 +12,22 @@ namespace EKM_Project.Services.OrderRepository
             _context = new ApplicationDbContext();
         }
 
-        public void CreateOrder()
+        public void CreateOrder(Order order)
         {
-            throw new NotImplementedException();
+            _context.Orders.Add(order);
+        }
+
+        public bool Save()
+        {
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

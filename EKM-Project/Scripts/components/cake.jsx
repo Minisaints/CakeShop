@@ -129,6 +129,10 @@ const OrderBasket = (props) => {
     );
 };
 
+const SendOrderToDb = () => {
+    
+}
+
 const CakeTable = (props) => {
 
     const style = {
@@ -233,12 +237,14 @@ class Shop extends React.Component {
         customerDetails: {},
         showCustomerForm: false,
         submitOrder: false
+        //orderSuccess: false
     }
 
     componentDidMount = () => {
         axios.get("api/cakes").then(response => {
             this.setState({ cakes: [...response.data] });
-        });
+        });   
+        
     }
 
     AddToShoppingListHandler = (cake) => {
@@ -300,19 +306,18 @@ class Shop extends React.Component {
             showCakeTable: false
         });
 
-        console.log("Paid by card");
+        console.log("Paying by card");
     }
 
     PayByCashHandler = () => {
 
-        console.log("Paid with cash");
+        console.log("Paying with cash");
     }
 
     SubmitOrderHandler = (event) => {
         event.preventDefault();
-        console.log("Card details form submitted");
         this.setState({
-            paymentDetails: {            
+            paymentDetails: {
                 holderName: event.target.cardholdername.value,
                 cardNumber: event.target.cardnumber.value,
                 expiryDate: event.target.expirydate.value,
@@ -324,7 +329,6 @@ class Shop extends React.Component {
 
     SubmitCustomerDetailsHandler = (event) => {
         event.preventDefault();
-        console.log("Customer details form Submitted");
         this.setState({
             customerDetails: {
                 firstName: event.target.firstname.value,
@@ -339,20 +343,33 @@ class Shop extends React.Component {
 
     render() {
 
+
+
         if (this.state.submitOrder) {
 
-            const paymentdetails = this.state.paymentDetails;
-            console.log(paymentdetails);
-            const shoppinglist = this.state.shoppingList;
-            console.log(shoppinglist);
-            const totalprice = this.state.totalPrice;
-            console.log(totalprice);
+            const customerdetails = this.state.customerDetails;
+            const orderlist = this.state.shoppingList;
+            const customerId = document.getElementById("root").getAttribute("user");
 
-            // check successful before resetting
-            //axios.post("/api/orders", post)
-            //    .then(response => {
-            //        console.log(response);
-            //    }); 
+            axios.post("api/customer", customerdetails);
+
+            for (let i = 0; i < orderlist.length; i++) {
+
+                const Order = {
+                    CakeId: orderlist[i].Id,
+                    CustomerId: customerId,
+                    Price: orderlist[i].Price
+                }
+
+                axios.post("api/order", Order)
+                    .then(response => {
+                        if (response.status === 200 && i === 0)
+                        toastr.success("Order has been placed");
+                    }).catch(error => {
+                        toastr.error("The order failed, please try again.");
+                    });
+            }
+
 
             this.setState({
                 submitOrder: false,
@@ -367,6 +384,11 @@ class Shop extends React.Component {
                 totalPrice: 0.00
             });
         }
+
+
+
+
+
 
         let openBasket = null;
         let order = null;

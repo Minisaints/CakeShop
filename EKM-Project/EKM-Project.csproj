@@ -53,6 +53,9 @@
     <Reference Include="Autofac.Integration.WebApi, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.WebApi2.4.1.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="ClearScript, Version=5.4.9.0, Culture=neutral, PublicKeyToken=935d0c957da47c73, processorArchitecture=MSIL">
       <HintPath>..\packages\JavaScriptEngineSwitcher.V8.2.4.2\lib\net45\ClearScript.dll</HintPath>
     </Reference>
@@ -278,11 +281,25 @@
     <Compile Include="Migrations\201801181020581_AddCustomer.Designer.cs">
       <DependentUpon>201801181020581_AddCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801182032410_AddOrder.cs" />
+    <Compile Include="Migrations\201801182032410_AddOrder.Designer.cs">
+      <DependentUpon>201801182032410_AddOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801182320347_ChangedCustomerType.cs" />
+    <Compile Include="Migrations\201801182320347_ChangedCustomerType.Designer.cs">
+      <DependentUpon>201801182320347_ChangedCustomerType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801182336568_NameChangePrice.cs" />
+    <Compile Include="Migrations\201801182336568_NameChangePrice.Designer.cs">
+      <DependentUpon>201801182336568_NameChangePrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Cake.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Dtos\CustomerDto.cs" />
+    <Compile Include="Models\Dtos\OrderDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
@@ -299,6 +316,7 @@
     <Content Include="Content\Admin.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\toastr.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -322,6 +340,7 @@
     <Content Include="Scripts\react.development.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -367,7 +386,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Dtos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -394,6 +412,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801181020581_AddCustomer.resx">
       <DependentUpon>201801181020581_AddCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801182032410_AddOrder.resx">
+      <DependentUpon>201801182032410_AddOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801182320347_ChangedCustomerType.resx">
+      <DependentUpon>201801182320347_ChangedCustomerType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801182336568_NameChangePrice.resx">
+      <DependentUpon>201801182336568_NameChangePrice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

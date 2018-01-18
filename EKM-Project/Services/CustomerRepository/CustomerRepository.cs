@@ -13,9 +13,22 @@ namespace EKM_Project.Services.CustomerRepository
             _context = new ApplicationDbContext();
         }
 
-        public void CreateCustomer()
+        public void CreateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            _context.Customers.Add(customer);
+        }
+
+        public bool Save()
+        {
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
