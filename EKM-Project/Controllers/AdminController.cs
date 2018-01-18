@@ -16,18 +16,13 @@ namespace EKM_Project.Controllers
             _context = new ApplicationDbContext();
 
         }
-        //GET: Admin
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         [Authorize]
-        public ActionResult Edit()
+        public ActionResult Index()
         {
             var result = _context.Cakes.ToList();
 
-            return View(result);
+            return View("Cakes/Index", result);
         }
 
         [Authorize]
@@ -39,7 +34,7 @@ namespace EKM_Project.Controllers
             }
             Cake _cake = _context.Cakes.Find(id);
 
-            return View(_cake);
+            return View("Cakes/EditCake", _cake);
         }
 
         [HttpPost]
@@ -50,12 +45,13 @@ namespace EKM_Project.Controllers
             {
                 _context.Entry(_cake).State = EntityState.Modified;
                 _context.SaveChanges();
-                return RedirectToAction("Edit");
+                return RedirectToAction("Index");
             }
 
-            return View(_cake);
+            return View("Cakes/EditCake", _cake);
         }
 
+        [Authorize]
         public ActionResult Delete(int id)
         {
             var cake = _context.Cakes.SingleOrDefault(c => c.Id == id);
@@ -66,23 +62,27 @@ namespace EKM_Project.Controllers
             _context.Cakes.Remove(cake);
             _context.SaveChanges();
 
-            return RedirectToAction("Edit");
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public ActionResult Add()
+        {
+            return View("Cakes/Add");
         }
 
         [HttpPost]
         [Authorize]
-        [ActionName("index")]
-        public ActionResult Create([Bind(Include = "CakeName,CakeDescription,Price")]Cake cake)
+        public ActionResult Add([Bind(Include = "CakeName,CakeDescription,Price")]Cake cake)
         {
             if (ModelState.IsValid)
             {
                 _context.Cakes.Add(cake);
                 _context.SaveChanges();
-                return RedirectToAction("Edit");
+                return RedirectToAction("Index");
             }
 
-            return View("index", cake);
+            return View("Cakes/Add", cake);
         }
-
     }
 }

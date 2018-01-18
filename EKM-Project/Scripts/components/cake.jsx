@@ -65,7 +65,7 @@ const OrderBasket = (props) => {
                     <p >{cake.CakeName}</p>
                 </div>
                 <div style={{ width: "100%" }}>
-                    <p>£{cake.Price}</p><button
+                    <p>£{cake.Price.toFixed(2)}</p><button
                         onClick={(event) => props.removefrombasket(index, cake)}
                         style={{ border: "none", outline: "none", borderRadius: "5px", color: "#fff", backgroundColor: "red", float: "right", marginTop: "-28px", marginRight: "4px", marginBottom: "3px", height: "20px", width: "20px", textAlign: "center", fontSize: "9px" }}>
                         <strong>X</strong>
@@ -132,7 +132,7 @@ const CakeTable = (props) => {
         width: "100%", height: "100%",
         textAlign: "center",
         lineHeight: "90px", borderRight: "1px solid #444"
-    }     
+    }
 
     const cakeList = [...props.cakes];
     const list = cakeList.map((cake, index) => {
@@ -155,7 +155,37 @@ const CakeTable = (props) => {
         );
     });
 
-    return <div>{ list }</div>;
+    return <div>{list}</div>;
+}
+
+const CardForm = (props) => {
+    
+        return (
+            <div style={{height: "85%", display: "flex", justifyContent: "" }}>
+                <form onSubmit={props.submitOrder} style={{ width: "100%", display: "flex", flexFlow: "column", alignItems: "center", justifyContent: "center" }}>
+                    Cardholder Name <input className="form-control" type="text" name="cardholdername" />
+                    Card Number <input className="form-control" type="text" name="cardnumber"/>
+                    Expiry Date <input className="form-control" type="text" name="expirydate"/>
+                    CSC <input className="form-control" type="text" name="csc"/>
+                    <input style={{ marginTop: "10px" }} className="btn btn-success" type="submit" value="Submit Order" />
+                </form>
+            </div>
+        );
+}
+
+const Payment = (props) => {
+
+    const style = {
+        width: "60%",
+        height: "350px",
+        margin: "auto",
+        backgroundColor: "#fff", textAlign: "center", color: "#000", border: "1px solid #444", overflow: "auto"
+    }
+
+    return (<div style={style}>
+        <div style={{ textAlign: "center", backgroundColor: "#246CCC", color: "#fff", position: "sticky", top: "0", width: "auto", height: "50px", fontSize: "17px", lineHeight: "45px" }}>Payment Details</div>
+        <CardForm submitOrder={props.submitorder} />
+    </div>);
 }
 
 class Shop extends React.Component {
@@ -166,7 +196,14 @@ class Shop extends React.Component {
         totalPrice: 0.00,
         showOrderSummary: false,
         isBasketEmpty: true,
-        orderSuccess: false
+        hasPaidByCard: false,
+        paymentDetails: {
+            holderName: null,
+            cardNumber: null,
+            expiryDate: null,
+            csc: null
+        },
+        submitOrder: false
     }
 
     componentDidMount = () => {
@@ -178,8 +215,6 @@ class Shop extends React.Component {
     AddToShoppingListHandler = (cake) => {
         let list = this.state.shoppingList;
         list.push(cake);
-
-
 
         this.setState({
             shoppingList: list,
@@ -206,17 +241,18 @@ class Shop extends React.Component {
             basketEmpty = true;
         }
         this.setState({
-                shoppingList: list,
-                totalPrice: newTotal,
-                isBasketEmpty: basketEmpty
-            });
+            shoppingList: list,
+            totalPrice: newTotal,
+            isBasketEmpty: basketEmpty
+        });
 
     }
 
     CheckoutHandler = () => {
-        console.log(this.state.shoppingList);
         this.setState({
-            showOrderSummary: true
+            showOrderSummary: true,
+            hasPaidByCard: false
+
         });
     }
 
@@ -228,14 +264,59 @@ class Shop extends React.Component {
     }
 
     PayByCardHandler = () => {
+        this.setState({
+            showOrderSummary: false,
+            hasPaidByCard: true
+        });
+
         console.log("Paid by card");
     }
 
     PayByCashHandler = () => {
+
         console.log("Paid with cash");
     }
 
+    SubmitOrderHandler = (event) => {
+        event.preventDefault();
+        console.log("Card details form submitted");
+        this.setState({
+            paymentDetails: {            
+                holderName: event.target.cardholdername.value,
+                cardNumber: event.target.cardnumber.value,
+                expiryDate: event.target.expirydate.value,
+                csc: event.target.csc.value
+            },
+            submitOrder: true
+        });
+    }
+
     render() {
+
+        if (this.state.submitOrder) {
+
+            const paymentdetails = this.state.paymentDetails;
+            console.log(paymentdetails);
+            const shoppinglist = this.state.shoppingList;
+            console.log(shoppinglist);
+            const totalprice = this.state.totalPrice;
+            console.log(totalprice);
+
+            // check successful before resetting
+            //axios.post("/api/orders", post)
+            //    .then(response => {
+            //        console.log(response);
+            //    }); 
+
+            this.setState({
+                submitOrder: false,
+                hasPaidByCard: false,
+                isBasketOpen: false,
+                paymentDetails: {},
+                shoppingList: [],
+                totalPrice: 0.00
+            });
+        }
 
         let openBasket = null;
         let order = null;
@@ -257,20 +338,23 @@ class Shop extends React.Component {
                 );
             }
             openBasket = <OpenOrderSummary />;
-        }   
+        }
 
         if (this.state.showOrderSummary) {
             order = <OrderSummary shoppinglist={this.state.shoppingList} paybycash={this.PayByCashHandler} paybycard={this.PayByCardHandler} totalprice={this.state.totalPrice} />;
+        } else if (this.state.hasPaidByCard) {
+            order = <Payment submitorder={this.SubmitOrderHandler} />;
         } else {
-            order = <div><CakeTable cakes={this.state.cakes} addtoshopping={this.AddToShoppingListHandler}/></div>;
+
+            order = <div><CakeTable cakes={this.state.cakes} addtoshopping={this.AddToShoppingListHandler} /></div>;
             orderCategories = (<div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Product</h4>
-                            <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Description</h4>
-                            <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Price</h4>
-                            <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "50%" }}></h4></div>);
+                <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Description</h4>
+                <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Price</h4>
+                <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "50%" }}></h4></div>);
         }
 
         return (
-            <div style={{paddingRight: "10px", paddingLeft: "10px", backgroundColor:"transparent", marginTop: "20px"}}>
+            <div style={{ paddingRight: "10px", paddingLeft: "10px", backgroundColor: "transparent", marginTop: "20px" }}>
                 {orderCategories}
                 {order}
                 {openBasket}
@@ -282,8 +366,8 @@ class Shop extends React.Component {
 class App extends React.Component {
     render() {
         return (
-            <Shop/>
-            );
+            <Shop />
+        );
     }
 }
 

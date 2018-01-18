@@ -111,6 +111,12 @@ C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\bin\Autofac.Integration.WebAp
 C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\bin\System.Web.Optimization.React.dll
 C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\bin\System.Web.Optimization.React.xml
 C:\Users\Craig\Desktop\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.csprojResolveAssemblyReference.cache
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.initial.resources
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.AddCakes.resources
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.MakeRequired.resources
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.AddCustomer.resources
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.csproj.GenerateResource.Cache
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.csproj.CoreCompileInputs.cache
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ApplicationInsights.config
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\EKM-Project.dll.config
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\EKM-Project.dll
@@ -216,10 +222,5 @@ E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\JavaScrip
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\JavaScriptEngineSwitcher.Core.resources.dll
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\JavaScriptEngineSwitcher.V8.resources.dll
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\MsieJavaScriptEngine.resources.dll
-E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.initial.resources
-E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.AddCakes.resources
-E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.MakeRequired.resources
-E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.csproj.GenerateResource.Cache
-E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.csproj.CoreCompileInputs.cache
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.dll
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.pdb

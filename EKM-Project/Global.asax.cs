@@ -1,6 +1,9 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using EKM_Project.Services;
+using EKM_Project.Services.CakeRepository;
+using EKM_Project.Services.CustomerRepository;
+using EKM_Project.Services.OrderRepository;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -24,6 +27,10 @@ namespace EKM_Project
 
             builder.RegisterType<CakeRepository>()
                 .As<ICakeRepository>();
+            builder.RegisterType<OrderRepository>()
+                .As<IOrderRepository>();
+            builder.RegisterType<CustomerRepository>()
+                .As<ICustomerRepository>();
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();

@@ -112,3 +112,8 @@ th {
 .panel {
     margin-bottom: 0px;
 }
+
+.addCakeBtn {
+    margin-bottom: 10px;
+    color: #fff;
+}
