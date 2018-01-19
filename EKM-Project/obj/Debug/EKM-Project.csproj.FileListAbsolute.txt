@@ -205,6 +205,7 @@ E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\JavaScrip
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\JavaScriptEngineSwitcher.Core.resources.dll
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\JavaScriptEngineSwitcher.V8.resources.dll
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\bin\ru-ru\MsieJavaScriptEngine.resources.dll
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.csprojResolveAssemblyReference.cache
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.initial.resources
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.AddCakes.resources
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.MakeRequired.resources

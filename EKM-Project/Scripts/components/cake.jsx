@@ -1,7 +1,68 @@
-﻿const Checkout = (props) => {
+﻿
+
+const Checkout = (props) => {
 
     return <button onClick={props.checkout} className="btn btn-success" style={{ width: "100%", bottom: "0px", height: "35px", fontSize: "13px", borderRadius: "0px", position: "sticky" }}>
         Checkout</button>;
+}
+
+const CakeTable = (props) => {
+
+    const style = {
+        width: "100%",
+        height: "100px",
+        backgroundColor: "white",
+        marginBottom: "10px",
+        display: "flex",
+        flexFlow: "row",
+        border: "1px solid #888"
+
+    };
+
+    const cakeName = {
+        width: "100%",
+        height: "100%",
+        textAlign: "center",
+        lineHeight: "90px",
+        overflow: "hidden", borderRight: "1px solid #444"
+    }
+
+    const cakeDesc = {
+        width: "100%", height: "100%",
+        textAlign: "center",
+        lineHeight: "90px",
+        fontSize: "14px",
+        overflow: "hidden", borderRight: "1px solid #444"
+    }
+
+    const cakePrice = {
+        width: "100%", height: "100%",
+        textAlign: "center",
+        lineHeight: "90px", borderRight: "1px solid #444"
+    }
+
+    const cakeList = [...props.cakes];
+    const list = cakeList.map((cake, index) => {
+        return (
+            <div key={index}>
+                <div style={{ height: "10px", width: "100%", backgroundColor: "#2d87ff" }}></div>
+                <div style={style}>
+                    <p style={cakeName}>
+                        {cake.CakeName}
+                    </p>
+                    <p style={cakeDesc}>
+                        {cake.CakeDescription}
+                    </p>
+                    <p style={cakePrice}>
+                        £{cake.Price.toFixed(2)}
+                    </p>
+                    <button className="btn btn-default" onClick={(event) => props.addtoshopping(cake)} key={index} style={{ fontSize: "14px", margin: "25px", height: "50px", width: "50px" }}>Add</button>
+                </div>
+            </div>
+        );
+    });
+
+    return <div>{list}</div>;
 }
 
 const Customer = (props) => {
@@ -133,64 +194,7 @@ const SendOrderToDb = () => {
     
 }
 
-const CakeTable = (props) => {
 
-    const style = {
-        width: "100%",
-        height: "100px",
-        backgroundColor: "white",
-        marginBottom: "10px",
-        display: "flex",
-        flexFlow: "row",
-        border: "1px solid #888"
-
-    };
-
-    const cakeName = {
-        width: "100%",
-        height: "100%",
-        textAlign: "center",
-        lineHeight: "90px",
-        overflow: "hidden", borderRight: "1px solid #444"
-    }
-
-    const cakeDesc = {
-        width: "100%", height: "100%",
-        textAlign: "center",
-        lineHeight: "90px",
-        fontSize: "14px",
-        overflow: "hidden", borderRight: "1px solid #444"
-    }
-
-    const cakePrice = {
-        width: "100%", height: "100%",
-        textAlign: "center",
-        lineHeight: "90px", borderRight: "1px solid #444"
-    }
-
-    const cakeList = [...props.cakes];
-    const list = cakeList.map((cake, index) => {
-        return (
-            <div key={index}>
-                <div style={{ height: "10px", width: "100%", backgroundColor: "#2d87ff" }}></div>
-                <div style={style}>
-                    <p style={cakeName}>
-                        {cake.CakeName}
-                    </p>
-                    <p style={cakeDesc}>
-                        {cake.CakeDescription}
-                    </p>
-                    <p style={cakePrice}>
-                        £{cake.Price.toFixed(2)}
-                    </p>
-                    <button className="btn btn-default" onClick={(event) => props.addtoshopping(cake)} key={index} style={{ fontSize: "14px", margin: "25px", height: "50px", width: "50px" }}>Add</button>
-                </div>
-            </div>
-        );
-    });
-
-    return <div>{list}</div>;
-}
 
 const CardForm = (props) => {
     
