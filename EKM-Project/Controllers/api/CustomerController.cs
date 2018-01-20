@@ -22,6 +22,9 @@ namespace EKM_Project.Controllers.api
             if (!ModelState.IsValid)
                 return BadRequest();
 
+
+
+
             var result = Mapper.Map<Customer>(customer);
 
             if (result == null)

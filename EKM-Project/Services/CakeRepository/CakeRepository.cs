@@ -12,15 +12,12 @@ namespace EKM_Project.Services.CakeRepository
         {
             _context = new ApplicationDbContext();
         }
+
         public List<Cake> GetAllCakes()
         {
             var result = _context.Cakes.ToList();
 
             return result;
-        }
-
-        public void CreateOrder()
-        {
         }
     }
 }

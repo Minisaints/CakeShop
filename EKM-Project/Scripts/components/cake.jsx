@@ -1,5 +1,4 @@
 ﻿
-
 const Checkout = (props) => {
 
     return <button onClick={props.checkout} className="btn btn-success" style={{ width: "100%", bottom: "0px", height: "35px", fontSize: "13px", borderRadius: "0px", position: "sticky" }}>
@@ -70,24 +69,30 @@ const Customer = (props) => {
         width: "60%",
         height: "350px",
         margin: "auto",
-        backgroundColor: "#fff", textAlign: "center", color: "#000", border: "1px solid #444", overflow: "auto"
+        backgroundColor: "#fff", color: "#000", border: "1px solid #444", overflow: "auto"
     }
 
     return (<div style={style}>
-                <div style={{ textAlign: "center", backgroundColor: "#246CCC", color: "#fff", position: "sticky", top: "0", width: "auto", height: "50px", fontSize: "17px", lineHeight: "45px" }}>Customer Details</div>
-                <CustomerForm submitcustomerdetails={props.submitCustomerDetails}/>
-            </div>);
+        <div style={{ textAlign: "center", backgroundColor: "#246CCC", color: "#fff", position: "sticky", top: "0", width: "auto", height: "50px", fontSize: "17px", lineHeight: "45px" }}>Customer Details</div>
+        <CustomerForm submitcustomerdetails={props.submitCustomerDetails} />
+    </div>);
 }
 
 const CustomerForm = (props) => {
 
     return (
-        <div style={{ height: "85%", display: "flex", justifyContent: "" }}>
+        <div style={{ height: "85%", display: "flex"}}>
             <form onSubmit={props.submitcustomerdetails} style={{ width: "100%", display: "flex", flexFlow: "column", alignItems: "center", justifyContent: "center" }}>
-                First name <input className="form-control" type="text" name="firstname" />
-                Last name <input className="form-control" type="text" name="lastname" />
-                Date of Birth <input className="form-control" type="text" name="dateofbirth" />
-                Address <input className="form-control" type="text" name="address" />
+                First name <input className="form-control" type="text" name="firstname" required/>
+                Last name <input className="form-control" type="text" name="lastname" required/>
+                Date of Birth
+                <div style={{ display: "flex", flexFlow: "row", justifyContent: "center"}}>
+                    
+                    <input style={{ width: "16%" }} className="form-control" placeholder="Day" type="text" name="dateofbirthday" pattern="[1,31]"/>
+                    <input style={{ width: "16%" }} className="form-control" placeholder="Month" type="text" name="dateofbirthmonth" pattern="[1,12]" />
+                    <input style={{ width: "16%" }} className="form-control" placeholder="Year" type="text" name="dateofbirthyear" pattern="[1900,2018]{4}"/>
+                </div>
+                Address <input className="form-control" type="text" name="address" required/>
                 <input style={{ marginTop: "10px" }} className="btn btn-warning" type="submit" value="Confirm Details" />
             </form>
         </div>
@@ -191,24 +196,24 @@ const OrderBasket = (props) => {
 };
 
 const SendOrderToDb = () => {
-    
+
 }
 
 
 
 const CardForm = (props) => {
-    
-        return (
-            <div style={{height: "85%", display: "flex", justifyContent: "" }}>
-                <form onSubmit={props.submitOrder} style={{ width: "100%", display: "flex", flexFlow: "column", alignItems: "center", justifyContent: "center" }}>
-                    Cardholder Name <input className="form-control" type="text" name="cardholdername" />
-                    Card Number <input className="form-control" type="text" name="cardnumber"/>
-                    Expiry Date <input className="form-control" type="text" name="expirydate"/>
-                    CSC <input className="form-control" type="text" name="csc"/>
-                    <input style={{ marginTop: "10px" }} className="btn btn-success" type="submit" value="Submit Order" />
-                </form>
-            </div>
-        );
+
+    return (
+        <div style={{ height: "85%", display: "flex", justifyContent: "" }}>
+            <form onSubmit={props.submitOrder} style={{ width: "100%", display: "flex", flexFlow: "column", alignItems: "center", justifyContent: "center" }}>
+                Cardholder Name <input className="form-control" type="text" name="cardholdername" />
+                Card Number <input className="form-control" type="text" name="cardnumber" />
+                Expiry Date <input className="form-control" type="text" name="expirydate" />
+                CSC <input className="form-control" type="text" name="csc" />
+                <input style={{ marginTop: "10px" }} className="btn btn-success" type="submit" value="Submit Order" />
+            </form>
+        </div>
+    );
 }
 
 const Payment = (props) => {
@@ -240,15 +245,17 @@ class Shop extends React.Component {
         showPaymentForm: false,
         customerDetails: {},
         showCustomerForm: false,
-        submitOrder: false
+        submitOrder: false,
+        customerData: [],
+        orderPlaced: false
         //orderSuccess: false
     }
 
     componentDidMount = () => {
         axios.get("api/cakes").then(response => {
             this.setState({ cakes: [...response.data] });
-        });   
-        
+        });
+
     }
 
     AddToShoppingListHandler = (cake) => {
@@ -333,66 +340,84 @@ class Shop extends React.Component {
 
     SubmitCustomerDetailsHandler = (event) => {
         event.preventDefault();
-        this.setState({
-            customerDetails: {
-                firstName: event.target.firstname.value,
-                lastName: event.target.lastname.value,
-                dateOfBirth: event.target.dateofbirth.value,
-                address: event.target.address.value
-            },
-            showPaymentForm: true,
-            showCustomerForm: false
-    });
+
+        let tempdate =
+            event.target.dateofbirthmonth.value + "-" +
+            event.target.dateofbirthday.value + "-" +
+            event.target.dateofbirthyear.value;
+
+        let dateofbirth = moment(tempdate, "MM-DD-YYYY").format("l"); 
+
+        let customer = {
+            firstName: event.target.firstname.value,
+            lastName: event.target.lastname.value,
+            dateOfBirth: dateofbirth,
+            address: event.target.address.value
+        }
+
+        this.SubmitCustomerDetails(customer);
     }
 
-    render() {
+    SubmitCustomerDetails(customer) {
 
+
+        axios.post("api/customer", customer)
+            .then(response => {
+                this.setState({
+                    customerData: response.data,
+                    customerDetails: customer,
+                    showPaymentForm: true,
+                    showCustomerForm: false
+                });
+            }).catch(error => {
+                this.setState({submitOrder: false});
+            });
+        
+    }
+
+    PlaceOrder() {
+        const orderlist = this.state.shoppingList;
+            const customerAccountId = document.getElementById("root").getAttribute("user");     
+
+                for (let i = 0; i < orderlist.length; i++) {
+
+                        const Order = {
+                            CakeId: orderlist[i].Id,
+                            CustomerAccountId: customerAccountId,
+                            Price: orderlist[i].Price,
+                            CustomerId: this.state.customerData.Id
+                        }
+
+                        axios.post("api/order", Order)
+                            .then(response => {
+                                if (response.status === 200 && i === 0)
+                                    toastr.success("Order has been placed");
+                            }).catch(error => {
+                                if (i === 0)
+                                toastr.error("The order failed, please try again.");
+                            });
+                    }
+
+                this.setState({
+                    submitOrder: false,
+                    cardPaymentMethod: false,
+                    showCakeTable: true,
+                    isBasketOpen: false,
+                    isBasketEmpty: true,
+                    paymentDetails: {},
+                    shoppingList: [],
+                    customerDetails: {},
+                    showPaymentForm: false,
+                    totalPrice: 0.00
+                });
+    }
+
+render() {
 
 
         if (this.state.submitOrder) {
-
-            const customerdetails = this.state.customerDetails;
-            const orderlist = this.state.shoppingList;
-            const customerId = document.getElementById("root").getAttribute("user");
-
-            axios.post("api/customer", customerdetails);
-
-            for (let i = 0; i < orderlist.length; i++) {
-
-                const Order = {
-                    CakeId: orderlist[i].Id,
-                    CustomerId: customerId,
-                    Price: orderlist[i].Price
-                }
-
-                axios.post("api/order", Order)
-                    .then(response => {
-                        if (response.status === 200 && i === 0)
-                        toastr.success("Order has been placed");
-                    }).catch(error => {
-                        toastr.error("The order failed, please try again.");
-                    });
-            }
-
-
-            this.setState({
-                submitOrder: false,
-                cardPaymentMethod: false,
-                showCakeTable: true,
-                isBasketOpen: false,
-                isBasketEmpty: true,
-                paymentDetails: {},
-                shoppingList: [],
-                customerDetails: {},
-                showPaymentForm: false,
-                totalPrice: 0.00
-            });
+            this.PlaceOrder();
         }
-
-
-
-
-
 
         let openBasket = null;
         let order = null;
@@ -419,8 +444,8 @@ class Shop extends React.Component {
         if (this.state.showOrderSummary) {
             order = <OrderSummary shoppinglist={this.state.shoppingList} paybycash={this.PayByCashHandler} paybycard={this.PayByCardHandler} totalprice={this.state.totalPrice} />;
         } else if (this.state.showCustomerForm) {
-            order = <Customer submitCustomerDetails={this.SubmitCustomerDetailsHandler}/>;
-        } else if(this.state.showCakeTable) {
+            order = <Customer submitCustomerDetails={this.SubmitCustomerDetailsHandler} />;
+        } else if (this.state.showCakeTable) {
             order = <div><CakeTable cakes={this.state.cakes} addtoshopping={this.AddToShoppingListHandler} /></div>;
             orderCategories = (<div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Product</h4>
                 <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Description</h4>

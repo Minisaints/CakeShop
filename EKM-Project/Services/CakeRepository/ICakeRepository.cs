@@ -6,6 +6,5 @@ namespace EKM_Project.Services.CakeRepository
     public interface ICakeRepository
     {
         List<Cake> GetAllCakes();
-        void CreateOrder();
     }
 }

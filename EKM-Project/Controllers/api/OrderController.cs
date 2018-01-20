@@ -22,6 +22,8 @@ namespace EKM_Project.Controllers.api
             if (!ModelState.IsValid)
                 return BadRequest();
 
+
+
             var result = Mapper.Map<Order>(order);
 
             if (result == null)

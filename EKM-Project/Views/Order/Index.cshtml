@@ -1,0 +1,56 @@
+﻿@model IEnumerable<EKM_Project.Models.Order>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="AdminPage">
+    <div class="navBar">
+        <h2 class="logoText">Administration</h2>
+        @Html.ActionLink("Return to Front-end", "Index", "Home", new { }, new { @class = "btn btn-default returnBtn" })
+    </div>
+
+    <div class="sideBarCont">
+        <div class="sidebar">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation">@Html.ActionLink("Cakes", "Index", "Admin")</li>
+                <li role="presentation" >@Html.ActionLink("Customers", "Index", "Customer")</li>
+                <li role="presentation" class="active">@Html.ActionLink("Orders", "Index", "Order")</li>
+            </ul>
+        </div>
+        <div class="content">
+            <table id="your_cakes" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Id)</th>
+                        <th>@Html.DisplayNameFor(model => model.CakeId)</th>
+                        <th>@Html.DisplayNameFor(model => model.CustomerAccountId)</th>
+                        <th>@Html.DisplayNameFor(model => model.CustomerId)</th>
+                        <th>@Html.DisplayNameFor(model => model.Price)</th>
+                        <th>@Html.DisplayNameFor(model => model.Status)</th>
+
+                        @*<th>Modify</th>*@
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CakeId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CustomerAccountId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CustomerId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                            @*<td>
+                                @Html.ActionLink("Edit", "EditCustomer", "Customer", new { id = item. }, new { @class = "btn btn-default" })
+                                @Html.ActionLink("Delete", "Delete", "Customer", new { id = item.Id }, new { @class = "btn btn-default" })
+                            </td>*@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

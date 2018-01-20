@@ -241,6 +241,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -271,6 +272,10 @@
     <Compile Include="Migrations\201801182336568_NameChangePrice.cs" />
     <Compile Include="Migrations\201801182336568_NameChangePrice.Designer.cs">
       <DependentUpon>201801182336568_NameChangePrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801201735203_Update.cs" />
+    <Compile Include="Migrations\201801201735203_Update.Designer.cs">
+      <DependentUpon>201801201735203_Update.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -312,6 +317,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\react-dom.development.js" />
     <Content Include="Scripts\react.development.js" />
     <Content Include="Scripts\respond.js" />
@@ -359,6 +368,7 @@
     <Content Include="Views\Cake\Index.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\EditCustomer.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -397,6 +407,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801182336568_NameChangePrice.resx">
       <DependentUpon>201801182336568_NameChangePrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801201735203_Update.resx">
+      <DependentUpon>201801201735203_Update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
