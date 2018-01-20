@@ -88,9 +88,9 @@ const CustomerForm = (props) => {
                 Date of Birth
                 <div style={{ display: "flex", flexFlow: "row", justifyContent: "center"}}>
                     
-                    <input style={{ width: "16%" }} className="form-control" placeholder="Day" type="text" name="dateofbirthday" pattern="[1,31]"/>
-                    <input style={{ width: "16%" }} className="form-control" placeholder="Month" type="text" name="dateofbirthmonth" pattern="[1,12]" />
-                    <input style={{ width: "16%" }} className="form-control" placeholder="Year" type="text" name="dateofbirthyear" pattern="[1900,2018]{4}"/>
+                    <input style={{ width: "16%" }} className="form-control" placeholder="Day" type="text" name="dateofbirthday" required pattern="[1-9]{1,2}"/>
+                    <input style={{ width: "16%" }} className="form-control" placeholder="Month" type="text" name="dateofbirthmonth" required pattern="[1-9]{1,2}" />
+                    <input style={{ width: "16%" }} className="form-control" placeholder="Year" type="text" name="dateofbirthyear" required pattern="[1-9]{4}"/>
                 </div>
                 Address <input className="form-control" type="text" name="address" required/>
                 <input style={{ marginTop: "10px" }} className="btn btn-warning" type="submit" value="Confirm Details" />
