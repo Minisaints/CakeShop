@@ -36,3 +36,11 @@ textarea {
 .navbar-inverse .navbar-brand {
     color: #fff;
 }
+
+    .navbar-inverse .navbar-toggle {
+        border-color: #fff;
+    }
+
+        .navbar-inverse .navbar-toggle:focus {
+            outline: none;
+        }
