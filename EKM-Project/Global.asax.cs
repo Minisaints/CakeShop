@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
-using EKM_Project.Services;
 using EKM_Project.Services.CakeRepository;
 using EKM_Project.Services.CustomerRepository;
 using EKM_Project.Services.OrderRepository;
@@ -36,7 +35,7 @@ namespace EKM_Project
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-
+            GlobalFilters.Filters.Add(new RequireHttpsAttribute());
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

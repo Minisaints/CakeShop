@@ -1,7 +1,7 @@
 ﻿
 const Checkout = (props) => {
 
-    return <button onClick={props.checkout} className="btn btn-success" style={{ width: "100%", bottom: "0px", height: "35px", fontSize: "13px", borderRadius: "0px", position: "sticky" }}>
+     return <button onClick={props.checkout} className="btn btn-success" style={{ width: "100%", bottom: "0px", height: "35px", fontSize: "13px", borderRadius: "0px", position: "sticky" }}>
         Checkout</button>;
 }
 
@@ -83,7 +83,7 @@ const CustomerForm = (props) => {
     return (
         <div style={{ height: "85%", display: "flex"}}>
             <form onSubmit={props.submitcustomerdetails} style={{ width: "100%", display: "flex", flexFlow: "column", alignItems: "center", justifyContent: "center" }}>
-                First name <input className="form-control" type="text" name="firstname" required/>
+                First name <input className="form-control" type="text" name="firstname" required autofocus="true"/>
                 Last name <input className="form-control" type="text" name="lastname" required/>
                 Date of Birth
                 <div style={{ display: "flex", flexFlow: "row", justifyContent: "center"}}>
@@ -173,6 +173,7 @@ const OrderBasket = (props) => {
 
     let noItems = null;
     let emptyBasket = null;
+    const auth = document.getElementById("root").getAttribute("auth");  
 
     if (props.shoppinglist.length === 0) {
         noItems = <p style={{ textAlign: "center", fontSize: "16px" }}>Basket empty</p>;
@@ -180,7 +181,7 @@ const OrderBasket = (props) => {
         noItems = <div>{list}</div>;
     }
 
-    if (!props.isbasketempty) {
+    if (!props.isbasketempty && auth) {
         emptyBasket = <Checkout checkout={props.checkout} />;
     }
 
@@ -195,18 +196,13 @@ const OrderBasket = (props) => {
     );
 };
 
-const SendOrderToDb = () => {
-
-}
-
-
 
 const CardForm = (props) => {
 
     return (
         <div style={{ height: "85%", display: "flex", justifyContent: "" }}>
             <form onSubmit={props.submitOrder} style={{ width: "100%", display: "flex", flexFlow: "column", alignItems: "center", justifyContent: "center" }}>
-                Cardholder Name <input className="form-control" type="text" name="cardholdername" />
+                Cardholder Name <input className="form-control" type="text" name="cardholdername" autofocus="true" />
                 Card Number <input className="form-control" type="text" name="cardnumber" />
                 Expiry Date <input className="form-control" type="text" name="expirydate" />
                 CSC <input className="form-control" type="text" name="csc" />
@@ -250,6 +246,8 @@ class Shop extends React.Component {
         orderPlaced: false
         //orderSuccess: false
     }
+
+   
 
     componentDidMount = () => {
         axios.get("api/cakes").then(response => {
@@ -428,6 +426,7 @@ render() {
                 shoppinglist={this.state.shoppingList}
                 removefrombasket={this.RemoveFromShoppingListHandler}
                 isbasketempty={this.state.isBasketEmpty}
+                isLoggedIn={this.state.IsLoggedIn}
                 checkout={this.CheckoutHandler}
                 togglebasket={this.ToggleBasketHandler}
                 totalprice={this.state.totalPrice} />;

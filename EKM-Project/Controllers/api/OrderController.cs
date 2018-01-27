@@ -2,6 +2,7 @@
 using EKM_Project.Models;
 using EKM_Project.Models.Dtos;
 using EKM_Project.Services.OrderRepository;
+using System;
 using System.Web.Http;
 
 namespace EKM_Project.Controllers.api
@@ -34,7 +35,8 @@ namespace EKM_Project.Controllers.api
             if (!_repository.Save())
                 return InternalServerError();
 
-            return Ok(result); // Use Created response (GET single Order controller)
+            return Created(new Uri(Request.RequestUri + "/" + result.Id), order);
+
         }
 
     }

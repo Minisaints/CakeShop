@@ -1,5 +1,6 @@
 ﻿using EKM_Project.Models;
 using System;
+using System.Linq;
 
 namespace EKM_Project.Services.CustomerRepository
 {
@@ -29,6 +30,13 @@ namespace EKM_Project.Services.CustomerRepository
                 return false;
             }
             return true;
+        }
+
+        public Customer GetCustomer(int id)
+        {
+            var result = _context.Customers.SingleOrDefault(c => c.Id == id);
+
+            return result;
         }
     }
 }

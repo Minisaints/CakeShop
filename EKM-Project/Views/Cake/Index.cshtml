@@ -7,7 +7,7 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<div id="root" user="@User.Identity.GetUserId()"></div>
+<div id="root" auth="@User.Identity.IsAuthenticated" user="@User.Identity.GetUserId()"></div>
 
 @Scripts.Render("~/bundles/react")
 @Scripts.Render("~/bundles/components")

@@ -2,6 +2,7 @@
 using EKM_Project.Models;
 using EKM_Project.Models.Dtos;
 using EKM_Project.Services.CustomerRepository;
+using System;
 using System.Web.Http;
 
 namespace EKM_Project.Controllers.api
@@ -22,20 +23,30 @@ namespace EKM_Project.Controllers.api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-
-
-
             var result = Mapper.Map<Customer>(customer);
 
             if (result == null)
-                InternalServerError();
+                return InternalServerError();
 
             _repository.CreateCustomer(result);
 
             if (!_repository.Save())
                 return InternalServerError();
 
-            return Ok(result); // Use Created response (GET single Customer controller)
+            return Created(new Uri(Request.RequestUri + "/" + result.Id), customer);
         }
+
+        [HttpGet]
+        [Route("api/customer/{id}")]
+        public IHttpActionResult GetCustomer(int id)
+        {
+            var result = _repository.GetCustomer(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
     }
 }

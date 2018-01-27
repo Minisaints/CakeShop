@@ -21,34 +21,41 @@
         <div class="content">
             <table id="your_cakes" class="table table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.Id)</th>
-                        <th>@Html.DisplayNameFor(model => model.CakeId)</th>
-                        <th>@Html.DisplayNameFor(model => model.CustomerAccountId)</th>
-                        <th>@Html.DisplayNameFor(model => model.CustomerId)</th>
-                        <th>@Html.DisplayNameFor(model => model.Price)</th>
-                        <th>@Html.DisplayNameFor(model => model.Status)</th>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.CakeId)</th>
+                    <th>@Html.DisplayNameFor(model => model.CustomerAccountId)</th>
+                    <th>@Html.DisplayNameFor(model => model.CustomerId)</th>
+                    <th>@Html.DisplayNameFor(model => model.Price)</th>
+                    <th>@Html.DisplayNameFor(model => model.Status)</th>
 
-                        @*<th>Modify</th>*@
-
-                    </tr>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CakeId)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CustomerAccountId)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CustomerId)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                            @*<td>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CakeId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CustomerAccountId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CustomerId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                        
+                        @if (@item.Status == 1)
+                        {
+                            <td><button class="btn btn-success statusBtn" id="@item.Status">Sent</button></td>
+                        }
+                        else
+                        {
+                            <td><button class="btn btn-primary statusBtn" id="@item.Status">Send</button></td>
+                        }
+
+                        @*<td>
                                 @Html.ActionLink("Edit", "EditCustomer", "Customer", new { id = item. }, new { @class = "btn btn-default" })
                                 @Html.ActionLink("Delete", "Delete", "Customer", new { id = item.Id }, new { @class = "btn btn-default" })
                             </td>*@
-                        </tr>
-                    }
+                    </tr>
+                }
                 </tbody>
             </table>
         </div>

@@ -6,6 +6,7 @@ namespace EKM_Project.Services.CustomerRepository
     {
         void CreateCustomer(Customer customer);
         bool Save();
+        Customer GetCustomer(int id);
 
     }
 }
