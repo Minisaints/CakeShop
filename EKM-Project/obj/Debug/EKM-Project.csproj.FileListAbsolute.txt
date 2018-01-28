@@ -327,3 +327,5 @@ C:\Users\Craig\Desktop\EKM-Project-img\EKM-Project\obj\Debug\EKM-Project.pdb
 C:\Users\Craig\Desktop\EKM-Project-img\EKM-Project\obj\Debug\EKM_Project.Migrations.AddImageUpload.resources
 C:\Users\Craig\Desktop\EKM-Project-img\EKM-Project\obj\Debug\EKM_Project.Migrations.AlterImagePermission.resources
 C:\Users\Craig\Desktop\EKM-Project-img\EKM-Project\obj\Debug\EKM_Project.Migrations.PopulateCakes.resources
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.AddImageUpload.resources
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM_Project.Migrations.AlterImagePermission.resources
