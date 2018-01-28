@@ -305,6 +305,7 @@
     <Compile Include="Services\CustomerRepository\ICustomerRepository.cs" />
     <Compile Include="Services\OrderRepository\IOrderRepository.cs" />
     <Compile Include="Services\OrderRepository\OrderRepository.cs" />
+    <Compile Include="Services\RequireHttpsAttribute.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
