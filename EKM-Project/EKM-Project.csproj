@@ -276,9 +276,17 @@
     <Compile Include="Migrations\201801201735203_Update.Designer.cs">
       <DependentUpon>201801201735203_Update.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801202337435_PopulateCakes.cs" />
-    <Compile Include="Migrations\201801202337435_PopulateCakes.Designer.cs">
-      <DependentUpon>201801202337435_PopulateCakes.cs</DependentUpon>
+    <Compile Include="Migrations\201801272046009_AddImageUpload.cs" />
+    <Compile Include="Migrations\201801272046009_AddImageUpload.Designer.cs">
+      <DependentUpon>201801272046009_AddImageUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801272052125_AlterImagePermission.cs" />
+    <Compile Include="Migrations\201801272052125_AlterImagePermission.Designer.cs">
+      <DependentUpon>201801272052125_AlterImagePermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801280059186_PopulateCakes.cs" />
+    <Compile Include="Migrations\201801280059186_PopulateCakes.Designer.cs">
+      <DependentUpon>201801280059186_PopulateCakes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -414,8 +422,14 @@
     <EmbeddedResource Include="Migrations\201801201735203_Update.resx">
       <DependentUpon>201801201735203_Update.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801202337435_PopulateCakes.resx">
-      <DependentUpon>201801202337435_PopulateCakes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801272046009_AddImageUpload.resx">
+      <DependentUpon>201801272046009_AddImageUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801272052125_AlterImagePermission.resx">
+      <DependentUpon>201801272052125_AlterImagePermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801280059186_PopulateCakes.resx">
+      <DependentUpon>201801280059186_PopulateCakes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

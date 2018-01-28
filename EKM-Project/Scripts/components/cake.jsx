@@ -8,54 +8,29 @@ const Checkout = (props) => {
 const CakeTable = (props) => {
 
     const style = {
-        width: "100%",
-        height: "100px",
+        height: "auto",
         backgroundColor: "white",
         marginBottom: "10px",
-        display: "flex",
-        flexFlow: "row",
-        border: "1px solid #888"
+        margin: "5px",
+        border: "1px solid #888",
+        display: "inline-block"
 
     };
 
-    const cakeName = {
-        width: "100%",
-        height: "100%",
-        textAlign: "center",
-        lineHeight: "90px",
-        overflow: "hidden", borderRight: "1px solid #444"
-    }
-
-    const cakeDesc = {
-        width: "100%", height: "100%",
-        textAlign: "center",
-        lineHeight: "90px",
-        fontSize: "14px",
-        overflow: "hidden", borderRight: "1px solid #444"
-    }
-
-    const cakePrice = {
-        width: "100%", height: "100%",
-        textAlign: "center",
-        lineHeight: "90px", borderRight: "1px solid #444"
-    }
 
     const cakeList = [...props.cakes];
     const list = cakeList.map((cake, index) => {
+        var base64Icon = "data:image/png;base64," + cake.Image;
         return (
-            <div key={index}>
-                <div style={{ height: "10px", width: "100%", backgroundColor: "#2d87ff" }}></div>
-                <div style={style}>
-                    <p style={cakeName}>
-                        {cake.CakeName}
-                    </p>
-                    <p style={cakeDesc}>
-                        {cake.CakeDescription}
-                    </p>
-                    <p style={cakePrice}>
-                        £{cake.Price.toFixed(2)}
-                    </p>
-                    <button className="btn btn-default" onClick={(event) => props.addtoshopping(cake)} key={index} style={{ fontSize: "14px", margin: "25px", height: "50px", width: "50px" }}>Add</button>
+            <div key={index} style={style}>
+                <div style={{ display: "flex", flexFlow: "column" }}>
+                    <img style={{ borderBottom: "1px solid rgb(136, 136, 136)" }} src={base64Icon} height="220px" width="250px" />
+                    <div style={{borderBottom: "1px solid rgb(136,136,136)"}}>{cake.CakeName}</div>
+                    <div style={{ display: "flex", flexFlow: "row" }}>
+                        <div style={{ fontSize: "20px", borderRight: "1px solid rgb(136, 136, 136)", width: "60%", height: "auto", lineHeight: "32px" }}>£{cake.Price}</div>
+                        <button className="btn btn-default" onClick={(event) => props.addtoshopping(cake)} key={index} style={{ border: "none", fontSize: "14px", height: "auto", width: "100px", borderRadius: "0px", lineHeight: "8px" }}>Add</button>
+
+                    </div>
                 </div>
             </div>
         );
@@ -195,7 +170,6 @@ const OrderBasket = (props) => {
         </div>
     );
 };
-
 
 const CardForm = (props) => {
 
@@ -419,21 +393,20 @@ render() {
 
         let openBasket = null;
         let order = null;
-        let orderCategories = null;
 
         if (this.state.isBasketOpen) {
-            openBasket = <OrderBasket
+            openBasket = <div style={{ position: "fixed", right: "0px", bottom: "0px"}}><OrderBasket
                 shoppinglist={this.state.shoppingList}
                 removefrombasket={this.RemoveFromShoppingListHandler}
                 isbasketempty={this.state.isBasketEmpty}
                 isLoggedIn={this.state.IsLoggedIn}
                 checkout={this.CheckoutHandler}
                 togglebasket={this.ToggleBasketHandler}
-                totalprice={this.state.totalPrice} />;
+                totalprice={this.state.totalPrice} /></div>;
         } else {
             const OpenOrderSummary = () => {
                 return (
-                    <div onClick={this.ToggleBasketHandler} style={{ lineHeight: "38px", fontSize: "18px", cursor: "pointer", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", border: "1px solid #444", width: "160px", height: "40px", position: "absolute", right: "10px", bottom: "10px" }}>
+                    <div onClick={this.ToggleBasketHandler} style={{ lineHeight: "38px", fontSize: "18px", cursor: "pointer", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", border: "1px solid #444", width: "160px", height: "40px", position: "fixed", right: "10px", bottom: "10px" }}>
                         Open Basket ({this.state.shoppingList.length})</div>
                 );
             }
@@ -445,21 +418,17 @@ render() {
         } else if (this.state.showCustomerForm) {
             order = <Customer submitCustomerDetails={this.SubmitCustomerDetailsHandler} />;
         } else if (this.state.showCakeTable) {
-            order = <div><CakeTable cakes={this.state.cakes} addtoshopping={this.AddToShoppingListHandler} /></div>;
-            orderCategories = (<div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Product</h4>
-                <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Description</h4>
-                <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "100%" }}>Price</h4>
-                <h4 style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", width: "50%" }}></h4></div>);
+            order = <CakeTable cakes={this.state.cakes} addtoshopping={this.AddToShoppingListHandler} />;
         } else if (this.state.showPaymentForm) {
             order = <Payment submitorder={this.SubmitOrderHandler} />;
         }
 
         return (
-            <div style={{ paddingRight: "10px", paddingLeft: "10px", backgroundColor: "transparent", marginTop: "20px" }}>
-                {orderCategories}
-                {order}
+            <div style={{textAlign: "center", backgroundColor: "transparent", marginTop: "20px" }}>
+                    {order}
                 {openBasket}
             </div>
+
         );
     }
 }
@@ -467,7 +436,7 @@ render() {
 class App extends React.Component {
     render() {
         return (
-            <Shop />
+            <Shop/>
         );
     }
 }
