@@ -63,9 +63,9 @@ const CustomerForm = (props) => {
                 Date of Birth
                 <div style={{ display: "flex", flexFlow: "row", justifyContent: "center"}}>
                     
-                    <input style={{ width: "16%" }} className="form-control" placeholder="Day" type="text" name="dateofbirthday" required pattern="[1-9]{1,2}"/>
-                    <input style={{ width: "16%" }} className="form-control" placeholder="Month" type="text" name="dateofbirthmonth" required pattern="[1-9]{1,2}" />
-                    <input style={{ width: "16%" }} className="form-control" placeholder="Year" type="text" name="dateofbirthyear" required pattern="[1-9]{4}"/>
+                    <input style={{ width: "16%" }} className="form-control" placeholder="Day" type="text" name="dateofbirthday" required pattern="[0-9]{1,2}"/>
+                    <input style={{ width: "16%" }} className="form-control" placeholder="Month" type="text" name="dateofbirthmonth" required pattern="[0-9]{1,2}" />
+                    <input style={{ width: "16%" }} className="form-control" placeholder="Year" type="text" name="dateofbirthyear" required pattern="[0-9]{4}"/>
                 </div>
                 Address <input className="form-control" type="text" name="address" required/>
                 <input style={{ marginTop: "10px" }} className="btn btn-warning" type="submit" value="Confirm Details" />
@@ -347,6 +347,10 @@ class Shop extends React.Component {
         
     }
 
+    //ImgHoverHandler = (event, index) => {
+    //    console.log(event);
+    //}
+
     PlaceOrder() {
         const orderlist = this.state.shoppingList;
             const customerAccountId = document.getElementById("root").getAttribute("user");     
@@ -419,7 +423,9 @@ render() {
         } else if (this.state.showCustomerForm) {
             order = <Customer submitCustomerDetails={this.SubmitCustomerDetailsHandler} />;
         } else if (this.state.showCakeTable) {
-            order = <CakeTable cakes={this.state.cakes} addtoshopping={this.AddToShoppingListHandler} />;
+            order = <CakeTable
+                cakes={this.state.cakes}
+                addtoshopping={this.AddToShoppingListHandler}/>;
         } else if (this.state.showPaymentForm) {
             order = <Payment submitorder={this.SubmitOrderHandler} />;
         }
