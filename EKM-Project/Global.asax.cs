@@ -35,7 +35,6 @@ namespace EKM_Project
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            GlobalFilters.Filters.Add(new RequireHttpsAttribute());
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
