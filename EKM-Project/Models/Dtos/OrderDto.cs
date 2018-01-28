@@ -9,5 +9,7 @@
         public float Price { get; set; }
 
         public int CustomerId { get; set; }
+
+        public int Status { get; set; }
     }
 }

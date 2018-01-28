@@ -33,7 +33,7 @@ namespace EKM_Project.Controllers.api
             if (!_repository.Save())
                 return InternalServerError();
 
-            return Created(new Uri(Request.RequestUri + "/" + result.Id), customer);
+            return Created(new Uri(Request.RequestUri + "/" + result.Id), result);
         }
 
         [HttpGet]

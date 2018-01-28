@@ -357,12 +357,13 @@ class Shop extends React.Component {
                             CakeId: orderlist[i].Id,
                             CustomerAccountId: customerAccountId,
                             Price: orderlist[i].Price,
-                            CustomerId: this.state.customerData.Id
+                            CustomerId: this.state.customerData.Id,
+                            Status: 0
                         }
 
                         axios.post("api/order", Order)
                             .then(response => {
-                                if (response.status === 200 && i === 0)
+                                if (response.status === 201 && i === 0)
                                     toastr.success("Order has been placed");
                             }).catch(error => {
                                 if (i === 0)

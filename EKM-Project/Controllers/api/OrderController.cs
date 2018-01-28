@@ -23,8 +23,6 @@ namespace EKM_Project.Controllers.api
             if (!ModelState.IsValid)
                 return BadRequest();
 
-
-
             var result = Mapper.Map<Order>(order);
 
             if (result == null)
@@ -35,7 +33,7 @@ namespace EKM_Project.Controllers.api
             if (!_repository.Save())
                 return InternalServerError();
 
-            return Created(new Uri(Request.RequestUri + "/" + result.Id), order);
+            return Created(new Uri(Request.RequestUri + "/" + result.Id), result);
 
         }
 
