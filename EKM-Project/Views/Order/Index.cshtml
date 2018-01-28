@@ -21,11 +21,12 @@
         <div class="content">
             <table id="your_cakes" class="table table-bordered table-hover">
                 <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.CakeId)</th>
-                    <th>@Html.DisplayNameFor(model => model.CustomerAccountId)</th>
-                    <th>@Html.DisplayNameFor(model => model.CustomerId)</th>
+                <tr >
+                    <th width="80px">@Html.DisplayNameFor(model => model.Id)</th>
+                    <th width="160px">@Html.DisplayNameFor(model => model.Cake.CakeName)</th>
+                    <th width="130px">@Html.DisplayNameFor(model => model.Customer.FirstName)</th>
+                    <th width="130px">@Html.DisplayNameFor(model => model.Customer.LastName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Customer.Address)</th>
                     <th>@Html.DisplayNameFor(model => model.Price)</th>
                     <th>@Html.DisplayNameFor(model => model.Status)</th>
 
@@ -34,20 +35,21 @@
                 <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr >
                         <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CakeId)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CustomerAccountId)</td>
-                        <td>@Html.DisplayFor(modelItem => item.CustomerId)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Cake.CakeName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Customer.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Customer.LastName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Customer.Address)</td>
+                        <td  width="30px">£@Html.DisplayFor(modelItem => item.Price)</td>
                         
                         @if (@item.Status == 1)
                         {
-                            <td><button class="btn btn-success statusBtn" id="@item.Status">Sent</button></td>
+                            <td width="50px"><button class="btn btn-success statusBtn" id="@item.Status">Sent</button></td>
                         }
                         else
                         {
-                            <td><button class="btn btn-primary statusBtn" id="@item.Status">Send</button></td>
+                            <td width="50px"><button class="btn btn-danger statusBtn" id="@item.Status">Not Sent</button></td>
                         }
 
                         @*<td>

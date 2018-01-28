@@ -4,6 +4,7 @@ namespace EKM_Project.Models
 {
     public class Order
     {
+        [Display(Name = "Order Id")]
         public int Id { get; set; }
 
         [Display(Name = "Cake Id")]

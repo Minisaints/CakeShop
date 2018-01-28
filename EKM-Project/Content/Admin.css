@@ -117,3 +117,8 @@ th {
     margin-bottom: 10px;
     color: #fff;
 }
+.statusBtn {
+    height: 30px !important;
+    line-height: 10px;
+
+}

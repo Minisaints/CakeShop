@@ -1,4 +1,5 @@
 ﻿using EKM_Project.Models;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -15,7 +16,7 @@ namespace EKM_Project.Controllers
 
         public ActionResult Index()
         {
-            var result = _context.Orders.AsEnumerable();
+            var result = _context.Orders.Include(c => c.Cake).Include(c => c.Customer).AsEnumerable();
 
             return View(result);
         }

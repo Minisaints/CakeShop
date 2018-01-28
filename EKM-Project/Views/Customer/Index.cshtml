@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
 <div class="AdminPage">
     <div class="navBar">
         <h2 class="logoText">Administration</h2>
@@ -21,10 +22,10 @@
             <table id="your_cakes" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
-                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
-                    <th>@Html.DisplayNameFor(model => model.DateOfBirth)</th>
+                    <th >@Html.DisplayNameFor(model => model.Id)</th>
+                    <th width="60px">@Html.DisplayNameFor(model => model.FirstName)</th>
+                    <th width="60px">@Html.DisplayNameFor(model => model.LastName)</th>
+                    <th width="60px">@Html.DisplayNameFor(model => model.DateOfBirth)</th>
                     <th>@Html.DisplayNameFor(model => model.Address)</th>
 
                     <th>Modify</th>
@@ -35,12 +36,15 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                        <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                        <td width="10px">@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td >@Html.DisplayFor(modelItem => item.FirstName)</td>
+                        <td >@Html.DisplayFor(modelItem => item.LastName)</td>
+                        @{
+                            var dob = item.DateOfBirth.ToString("d");
+                        }
+                        <td width="20px">@Html.DisplayFor(modelItem => dob)</td>
                         <td>@Html.DisplayFor(modelItem => item.Address)</td>
-                        <td>
+                        <td width="140px">
                             @Html.ActionLink("Edit", "EditCustomer", "Customer", new { id = item.Id }, new { @class = "btn btn-default" })
                             @Html.ActionLink("Delete", "Delete", "Customer", new { id = item.Id }, new { @class = "btn btn-default" })
                         </td>
@@ -51,6 +55,4 @@
         </div>
     </div>
 </div>
-
-
 
