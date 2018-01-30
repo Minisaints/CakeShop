@@ -16,7 +16,6 @@ const CakeTable = (props) => {
 
     };
 
-
     const cakeList = [...props.cakes];
     let SearchCount = 0;
     const list = cakeList.map((cake, index) => {
@@ -41,6 +40,8 @@ const CakeTable = (props) => {
 
     if (SearchCount === cakeList.length && cakeList.length > 0) {
         return <h1>Nothing to display!</h1>;
+    } else if (SearchCount === cakeList.length) {
+        return <div>Loading..</div>;
     }
 
     return <div>{list}</div>;
