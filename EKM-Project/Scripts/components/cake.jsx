@@ -1,6 +1,6 @@
 ﻿const Checkout = (props) => {
 
-     return <button onClick={props.checkout} className="btn btn-success" style={{ width: "100%", bottom: "0px", height: "35px", fontSize: "13px", borderRadius: "0px", position: "sticky" }}>
+     return <button onClick={props.checkout} className="btn btn-success" style={{ marginTop: "10px", width: "90%", bottom: "0px", height: "35px", fontSize: "13px", borderRadius: "0px", position: "sticky" }}>
         Checkout</button>;
 }
 
@@ -49,7 +49,8 @@ const CakeTable = (props) => {
 
 const Customer = (props) => {
     const style = {
-        width: "60%",
+        width: "50%",
+        minWidth: "300px",
         height: "350px",
         margin: "auto",
         backgroundColor: "#fff", color: "#000", border: "1px solid #444", overflow: "auto"
@@ -71,9 +72,9 @@ const CustomerForm = (props) => {
                 Date of Birth
                 <div style={{ display: "flex", flexFlow: "row", justifyContent: "center"}}>
                     
-                    <input style={{ width: "16%" }} className="form-control" placeholder="Day" type="text" name="dateofbirthday" required pattern="[0-9]{1,2}"/>
-                    <input style={{ width: "16%" }} className="form-control" placeholder="Month" type="text" name="dateofbirthmonth" required pattern="[0-9]{1,2}" />
-                    <input style={{ width: "16%" }} className="form-control" placeholder="Year" type="text" name="dateofbirthyear" required pattern="[0-9]{4}"/>
+                    <input style={{ width: "16%", minWidth: "93px" }} className="form-control" placeholder="Day" type="text" name="dateofbirthday" required pattern="[0-9]{1,2}"/>
+                    <input style={{ width: "16%", minWidth: "93px"}} className="form-control" placeholder="Month" type="text" name="dateofbirthmonth" required pattern="[0-9]{1,2}" />
+                    <input style={{ width: "16%", minWidth: "93px"}} className="form-control" placeholder="Year" type="text" name="dateofbirthyear" required pattern="[0-9]{4}"/>
                 </div>
                 Address <input className="form-control" type="text" name="address" required/>
                 <input style={{ marginTop: "10px" }} className="btn btn-warning" type="submit" value="Confirm Details" />
@@ -115,6 +116,7 @@ const OrderSummary = (props) => {
         <div>
             <div style={{
                 width: "60%",
+                minWidth: "300px",
                 height: "500px",
                 margin: "auto",
                 backgroundColor: "#fff", textAlign: "center", color: "#000", border: "1px solid #444", overflow: "auto"
@@ -466,4 +468,4 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<Shop />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
