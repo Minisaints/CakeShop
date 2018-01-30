@@ -335,7 +335,9 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\react-dom.development.js" />
+    <Content Include="Scripts\react-dom.production.min.js" />
     <Content Include="Scripts\react.development.js" />
+    <Content Include="Scripts\react.production.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\toastr.min.js" />
