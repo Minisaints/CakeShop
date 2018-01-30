@@ -28,7 +28,7 @@
                     <th>@Html.DisplayNameFor(model => model.CakeDescription)</th>
                     <th>@Html.DisplayNameFor(model => model.Price)</th>
 
-                    <th>Modify</th>
+                    <th >Modify</th>
 
                 </tr>
                 </thead>
@@ -40,7 +40,7 @@
                         <td>@Html.DisplayFor(modelItem => item.CakeName)</td>
                         <td>@Html.DisplayFor(modelItem => item.CakeDescription)</td>
                         <td>£@Html.DisplayFor(modelItem => item.Price)</td>
-                        <td>
+                        <td width="140px">
                             @Html.ActionLink("Edit", "EditCake", "Admin", new { id = item.Id }, new { @class = "btn btn-default" })
                             @Html.ActionLink("Delete", "Delete", "Admin", new { id = item.Id }, new { @class = "btn btn-default" })
                         </td>

@@ -19,7 +19,7 @@ namespace EKM_Project
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new BabelBundle("~/bundles/react").Include(
+            bundles.Add(new ScriptBundle("~/bundles/react").Include(
                     "~/Scripts/react.production.min.js",
                     "~/Scripts/react-dom.production.min.js"
                         ));

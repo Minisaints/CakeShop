@@ -1,5 +1,4 @@
-﻿
-const Checkout = (props) => {
+﻿const Checkout = (props) => {
 
      return <button onClick={props.checkout} className="btn btn-success" style={{ width: "100%", bottom: "0px", height: "35px", fontSize: "13px", borderRadius: "0px", position: "sticky" }}>
         Checkout</button>;
@@ -19,22 +18,30 @@ const CakeTable = (props) => {
 
 
     const cakeList = [...props.cakes];
+    let SearchCount = 0;
     const list = cakeList.map((cake, index) => {
         var base64Icon = "data:image/png;base64," + cake.Image;
-        return (
-            <div key={index} style={style}>
-                <div style={{ display: "flex", flexFlow: "column" }}>
-                    <img style={{ borderBottom: "1px solid rgb(136, 136, 136)" }} src={base64Icon} height="220px" width="250px" />
-                    <div style={{borderBottom: "1px solid rgb(136,136,136)"}}>{cake.CakeName}</div>
-                    <div style={{ display: "flex", flexFlow: "row" }}>
-                        <div style={{ fontSize: "20px", borderRight: "1px solid rgb(136, 136, 136)", width: "60%", height: "auto", lineHeight: "32px" }}>£{cake.Price}</div>
-                        <button className="btn btn-default" onClick={(event) => props.addtoshopping(cake)} key={index} style={{ border: "none", fontSize: "14px", height: "auto", width: "100px", borderRadius: "0px", lineHeight: "8px" }}>Add</button>
+        if (cake.CakeName.toLowerCase().includes(props.SearchText)) {
+            return (
+                <div key={index} style={style}>
+                    <div style={{ display: "flex", flexFlow: "column" }}>
+                        <img style={{ borderBottom: "1px solid rgb(136, 136, 136)" }} src={base64Icon} height="220px" width="250px" />
+                        <div style={{ borderBottom: "1px solid rgb(136,136,136)" }}>{cake.CakeName}</div>
+                        <div style={{ display: "flex", flexFlow: "row" }}>
+                            <div style={{ fontSize: "20px", borderRight: "1px solid rgb(136, 136, 136)", width: "60%", height: "auto", lineHeight: "32px" }}>£{
+                                cake.Price}</div>
+                            <button className="btn btn-default" onClick={(event) => props.addtoshopping(cake)} key={index} style={{ border: "none", fontSize: "14px", height: "auto", width: "100px", borderRadius: "0px", lineHeight: "8px" }}>Add</button>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        } else { SearchCount++;}      
     });
+
+    if (SearchCount === cakeList.length && cakeList.length > 0) {
+        return <h1>Nothing to display!</h1>;
+    }
 
     return <div>{list}</div>;
 }
@@ -217,7 +224,8 @@ class Shop extends React.Component {
         showCustomerForm: false,
         submitOrder: false,
         customerData: [],
-        orderPlaced: false
+        orderPlaced: false,
+        searchText: ""
         //orderSuccess: false
     }
 
@@ -347,9 +355,11 @@ class Shop extends React.Component {
         
     }
 
-    //ImgHoverHandler = (event, index) => {
-    //    console.log(event);
-    //}
+    SearchTextHandler = (event) => {
+        this.setState({
+            searchText: event.target.value.toLowerCase()
+        });
+    }
 
     PlaceOrder() {
         const orderlist = this.state.shoppingList;
@@ -423,9 +433,16 @@ render() {
         } else if (this.state.showCustomerForm) {
             order = <Customer submitCustomerDetails={this.SubmitCustomerDetailsHandler} />;
         } else if (this.state.showCakeTable) {
-            order = <CakeTable
-                cakes={this.state.cakes}
-                addtoshopping={this.AddToShoppingListHandler}/>;
+            order = <div>
+                <div style={{ display: "flex", flexFlow: "row", justifyContent: "center", height: "36px", marginBottom: "10px" }}><div>
+                    <input onChange={(event) => this.SearchTextHandler(event)} className="form-control" style={{ boxShadow: "none" }} type="text" placeholder="Type to search..." /></div>                   
+                    <img style={{ marginTop: "3px", height: "30px", width: "30px" }} src="Content/images/search.png" /></div><hr />
+
+                    <CakeTable
+                            cakes={this.state.cakes}
+                            addtoshopping={this.AddToShoppingListHandler}
+                            SearchText={this.state.searchText} />
+            </div>;
         } else if (this.state.showPaymentForm) {
             order = <Payment submitorder={this.SubmitOrderHandler} />;
         }
