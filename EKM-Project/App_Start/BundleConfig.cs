@@ -19,11 +19,24 @@ namespace EKM_Project
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new BabelBundle("~/bundles/components").Include(
+            //bundles.Add(new BabelBundle("~/bundles/react").Include(
+            //    "~/Scripts/react.development.js",
+            //    "~/Scripts/react-dom.development.js"
+            //            ));
+
+            bundles.Add(new BabelBundle("~/bundles/cake").Include(
                 "~/Scripts/react.production.min.js",
                 "~/Scripts/react-dom.production.min.js",
-                        "~/Scripts/components/cake.jsx"
-                        ));
+                "~/Scripts/components/cake.jsx",
+                "~/Scripts/axios.min.js"
+            ));
+
+            bundles.Add(new BabelBundle("~/bundles/orders").Include(
+                "~/Scripts/react.production.min.js",
+                "~/Scripts/react-dom.production.min.js",
+                "~/Scripts/components/orders.jsx",
+                "~/Scripts/axios.min.js"
+            ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",

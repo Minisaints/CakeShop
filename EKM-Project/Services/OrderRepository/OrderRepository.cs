@@ -1,5 +1,7 @@
 ﻿using EKM_Project.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EKM_Project.Services.OrderRepository
 {
@@ -28,6 +30,11 @@ namespace EKM_Project.Services.OrderRepository
                 return false;
             }
             return true;
+        }
+
+        public IEnumerable<Order> GetOrders(string id)
+        {
+            return _context.Orders.Where(c => c.CustomerAccountId == id);
         }
     }
 }

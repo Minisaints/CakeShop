@@ -1,4 +1,5 @@
 ﻿using EKM_Project.Models;
+using System.Collections.Generic;
 
 namespace EKM_Project.Services.OrderRepository
 {
@@ -6,5 +7,6 @@ namespace EKM_Project.Services.OrderRepository
     {
         void CreateOrder(Order order);
         bool Save();
+        IEnumerable<Order> GetOrders(string id);
     }
 }

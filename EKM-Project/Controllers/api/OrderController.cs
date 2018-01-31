@@ -37,5 +37,13 @@ namespace EKM_Project.Controllers.api
 
         }
 
+        [HttpGet]
+        [Route("api/orders/{id}")]
+        public IHttpActionResult GetOrders(int id)
+        {
+
+            return Ok();
+        }
+
     }
 }

@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Orders</h2>
+
+<div id="root" user="@User.Identity.GetUserId()"></div>
+
+@Scripts.Render("~/bundles/orders")
