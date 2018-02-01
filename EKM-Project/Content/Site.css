@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color:whitesmoke;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -47,4 +48,56 @@ textarea {
 
 @media (max-width: 767px) {
     .navbar-inverse .navbar-nav .open .dropdown-menu > li > a { color: #fff; }
+}
+
+@media (min-width: 1200px) {
+    .container { 
+        max-width: 1100px !important; 
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar > .container .navbar-brand { margin-left: 0px; }
+}
+
+/************************LOGIN***********************/
+
+.centerLogin {
+    display: inline-block;
+    display: table;
+    margin: auto;
+}
+
+.pageLogin {
+    float: left;
+}
+
+.center-block {
+    resize: none;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.jumbotron-login {
+    margin-top: 50px;
+    padding-top: 0px;
+    text-align: center;
+    border: 1px solid #888;
+    box-shadow: 0px 2px 66px -16px rgba(0,0,0,0.75);
+}
+
+.btn-block {
+    display: initial;
+}
+
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
+    float: none;
+    margin-left: -20px;
+}
+
+label {
+    font-size: 18px !important;
+    font-weight: normal;
+    font-family: Calibri;
 }

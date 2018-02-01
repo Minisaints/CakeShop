@@ -1,6 +1,6 @@
 ﻿const Checkout = (props) => {
 
-     return <button onClick={props.checkout} className="btn btn-success" style={{ marginTop: "10px", width: "100%", bottom: "0px", height: "35px", fontSize: "13px", borderRadius: "0px", position: "sticky" }}>
+     return <button onClick={props.checkout} className="btn btn-success" style={{ width: "100%", bottom: "0px", height: "35px", fontSize: "13px", borderRadius: "0px", position: "sticky" }}>
         Checkout</button>;
 }
 
@@ -175,8 +175,9 @@ const OrderBasket = (props) => {
             <div onClick={props.togglebasket} style={{ lineHeight: "38px", fontSize: "16px", height: "40px", cursor: "pointer", position: "sticky", width: "inherit", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", borderBottom: "1px solid #444", top: "0" }}>Shopping Basket</div>
             <div style={{ fontSize: "13px", display: "flex", textAlign: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ width: "100%", borderRight: "1px solid #444" }}>Product</h4><h4 style={{ width: "100%" }}>Price</h4></div>
             {noItems}
-            <div style={{ marginBottom: "-10px", backgroundColor: "#fff", borderTop: "1px solid #444", width: "100%", textAlign: "right", fontSize: "14px", paddingRight: "5px", bottom: props.Bottom, position: "sticky"}} >Total Price: £{props.totalprice.toFixed(2)}</div>
-            {emptyBasket}
+            <div style={{ backgroundColor: "#fff", borderTop: "1px solid #444", width: "100%", textAlign: "right", fontSize: "14px", bottom: "0px", position: "sticky"}} ><div style={{paddingRight: "5px"}}>Total Price: £{props.totalprice.toFixed(2)}</div>
+                {emptyBasket}
+            </div>
         </div>
     );
 };
@@ -229,8 +230,7 @@ class Shop extends React.Component {
         submitOrder: false,
         customerData: [],
         orderPlaced: false,
-        searchText: "",
-        Bottom: "0px"
+        searchText: ""
         //orderSuccess: false
     }
 
@@ -245,20 +245,13 @@ class Shop extends React.Component {
 
     AddToShoppingListHandler = (cake) => {
 
-        let bottom = "0px";
-
-        if (document.getElementById("root").getAttribute("auth")) {
-            bottom = "35px";
-        }
-
         let list = this.state.shoppingList;
         list.push(cake);
 
         this.setState({
             shoppingList: list,
             totalPrice: this.state.totalPrice + cake.Price,
-            isBasketEmpty: false,
-            Bottom: bottom
+            isBasketEmpty: false
         });
 
     }
@@ -432,8 +425,7 @@ render() {
                     isbasketempty={this.state.isBasketEmpty}
                     checkout={this.CheckoutHandler}
                     togglebasket={this.ToggleBasketHandler}
-                    totalprice={this.state.totalPrice}
-                    Bottom={this.state.Bottom} /></div>;
+                    totalprice={this.state.totalPrice} /></div>;
         } else {
             const OpenOrderSummary = () => {
                 return (
