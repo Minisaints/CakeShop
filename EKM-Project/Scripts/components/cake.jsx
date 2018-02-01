@@ -35,7 +35,7 @@ const CakeTable = (props) => {
                         <div style={{ display: "flex", flexFlow: "row" }}>
                             <div style={{ fontSize: "20px", borderRight: "1px solid rgb(136, 136, 136)", width: "60%", height: "auto", lineHeight: "32px" }}>£{
                                 cake.Price}</div>
-                            <button className="btn btn-default" onClick={(event) => props.addtoshopping(cake)} key={index} style={{ border: "none", fontSize: "14px", height: "auto", width: "100px", borderRadius: "0px", lineHeight: "8px" }}>Add</button>
+                            <button className="btn btn-default" onClick={(event) => props.addtoshopping(cake)} key={index} style={{ border: "none", fontSize: "14px", height: "auto", width: "100px", borderRadius: "0px", lineHeight: "8px", outline:"none" }}>Add</button>
 
                         </div>
                     </div>
@@ -68,25 +68,66 @@ const Customer = (props) => {
     </div>);
 }
 
-const CustomerForm = (props) => {
+class CustomerForm extends React.Component {
 
-    return (
-        <div style={{ height: "85%", display: "flex"}}>
-            <form onSubmit={props.submitcustomerdetails} style={{ fontSize: "14px", width: "100%", display: "flex", flexFlow: "column", alignItems: "center", justifyContent: "center" }}>
-                First name <input className="form-control" type="text" name="firstname" required autofocus="true"/>
-                Last name <input className="form-control" type="text" name="lastname" required/>
-                Date of Birth
-                <div style={{ display: "flex", flexFlow: "row", justifyContent: "center"}}>
-                    
-                    <input style={{ width: "16%", minWidth: "93px" }} className="form-control" placeholder="Day" type="text" name="dateofbirthday" required pattern="[0-9]{1,2}"/>
-                    <input style={{ width: "16%", minWidth: "93px"}} className="form-control" placeholder="Month" type="text" name="dateofbirthmonth" required pattern="[0-9]{1,2}" />
-                    <input style={{ width: "16%", minWidth: "93px"}} className="form-control" placeholder="Year" type="text" name="dateofbirthyear" required pattern="[0-9]{4}"/>
-                </div>
-                Address <input className="form-control" type="text" name="address" required/>
-                <input style={{ marginTop: "10px" }} className="btn btn-warning" type="submit" value="Confirm Details" />
-            </form>
-        </div>
-    );
+    state = {
+        postcode: ""
+    }
+
+    AddressLookupHandler = (event) => {
+
+        if (event.target.value.length > 5) {
+            axios.get("https://api.getaddress.io/find/" + event.target.value + "?api-key=iFhqQxAgk0KgQkDArWO8pw12102")
+                .then(response => {
+                    console.log(response.data);
+                    this.setState({ postcode: response.data });
+                });
+        }
+    }
+
+    render() {
+        return (
+            <div style={{ height: "85%", display: "flex" }}>
+                <form onSubmit={this.props.submitcustomerdetails} style={{
+                    fontSize: "14px",
+                    width: "100%",
+                    display: "flex",
+                    flexFlow: "column",
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}>
+                    First name <input className="form-control" type="text" name="firstname" required autofocus="true" />
+                    Last name <input className="form-control" type="text" name="lastname" required />
+                    Date of Birth
+                    <div style={{ display: "flex", flexFlow: "row", justifyContent: "center" }}>
+
+                        <input style={{ width: "9%", minWidth: "80px" }} className="form-control" type="text" name="dateofbirthday" required pattern="[0-9]{1,2}" placeholder="Day" />
+                        <div className="form-group" style={{ width: "23%", minWidth: "115px" }} >
+                            <select className="form-control" name="dateofbirthmonth">
+                                <option>January</option>
+                                <option>February</option>
+                                <option>March</option>
+                                <option>April</option>
+                                <option>May</option>
+                                <option>June</option>
+                                <option>July</option>
+                                <option>August</option>
+                                <option>September</option>
+                                <option>October</option>
+                                <option>November</option>
+                                <option>December</option>
+                            </select>
+                        </div>
+                        <input style={{ width: "12%", minWidth: "83px" }} className="form-control" type="text" name="dateofbirthyear" required pattern="[0-9]{4}" placeholder="Year" />
+                    </div>
+
+                    Address <input onChange={(event) => this.AddressLookupHandler(event)} className="form-control" type="text" name="address" required />
+                    <input style={{ marginTop: "10px" }
+                    } className="btn btn-warning" type="submit" value="Confirm Details" />
+                </form>
+            </div>
+        );
+    }
 }
 
 const OrderSummary = (props) => {

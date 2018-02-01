@@ -57,6 +57,10 @@ textarea {
     .navbar > .container .navbar-brand { margin-left: 0px; }
 }
 
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: transparent !important;
+}
+
 /***********************LOGIN**********************/
 
 .centerLogin {
