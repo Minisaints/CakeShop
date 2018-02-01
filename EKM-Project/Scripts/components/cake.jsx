@@ -4,6 +4,12 @@
         Checkout</button>;
 }
 
+const CollapseButton = (props) => {
+    return (
+        <div style={{ fontSize: "28px", fontWeight: "bold", height: "38px", width: "90px", marginRight: "-35px"}}>{props.children}</div>
+        );
+}
+
 const CakeTable = (props) => {
 
     const style = {
@@ -172,7 +178,8 @@ const OrderBasket = (props) => {
 
     return (
         <div style={{ marginBottom: "10px", width: "250px", height: "330px", border: "1px solid #444", backgroundColor: "white", position: "absolute", right: "10px", bottom: "0", overflow: "auto", overflowX: "hidden" }}>
-            <div onClick={props.togglebasket} style={{ lineHeight: "38px", fontSize: "16px", height: "40px", cursor: "pointer", position: "sticky", width: "inherit", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", borderBottom: "1px solid #444", top: "0" }}>Shopping Basket</div>
+            
+            <div onClick={props.togglebasket} style={{ lineHeight: "38px", fontSize: "16px", height: "40px", cursor: "pointer", position: "sticky", width: "inherit", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", borderBottom: "1px solid #444", top: "0"}}><div style={{ display: "flex", alignItems: "center", justifyContent: "center"}}><div style={{width: "70%",  textAlign: "right"}}>Shopping Basket</div><CollapseButton>&times;</CollapseButton></div></div>
             <div style={{ fontSize: "13px", display: "flex", textAlign: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ width: "100%", borderRight: "1px solid #444" }}>Product</h4><h4 style={{ width: "100%" }}>Price</h4></div>
             {noItems}
             <div style={{ backgroundColor: "#fff", borderTop: "1px solid #444", width: "100%", textAlign: "right", fontSize: "14px", bottom: "0px", position: "sticky"}} ><div style={{paddingRight: "5px"}}>Total Price: £{props.totalprice.toFixed(2)}</div>
@@ -429,7 +436,7 @@ render() {
         } else {
             const OpenOrderSummary = () => {
                 return (
-                    <div onClick={this.ToggleBasketHandler} style={{ lineHeight: "38px", fontSize: "18px", cursor: "pointer", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", border: "1px solid #444", width: "160px", height: "40px", position: "fixed", right: "10px", bottom: "10px" }}>
+                    <div onClick={this.ToggleBasketHandler} style={{ display: "flex", alignItems: "center", justifyContent: "center", lineHeight: "38px", fontSize: "18px", cursor: "pointer", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", border: "1px solid #444", height: "40px", position: "fixed", right: "10px", bottom: "10px", paddingRight: "10px", paddingLeft: "10px" }}>
                         Open Basket ({this.state.shoppingList.length})</div>
                 );
             }

@@ -18,6 +18,7 @@
                     {
                         @Html.AntiForgeryToken()
                         <hr />
+                        <h3 class="alert alert-info">Login</h3>
                         @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
                         <div class="form-group">
@@ -29,15 +30,13 @@
                             <div class="col-md-12">
                                 @Html.PasswordFor(m => m.Password, new { @class = "form-control center-block", placeholder="Password" })
                             </div>
-                        </div>
-                        <div class="form-group">
+                        </div>                       
 
                             <div class="checkbox">
                                 @Html.CheckBoxFor(m => m.RememberMe)
                                 @Html.LabelFor(m => m.RememberMe)
                             </div>
-
-                        </div>
+                        
                         <div class="form-group">
                             <div class="col-md-12">
                                 <input type="submit" value="Log in" class="btn btn-primary btn-block login_button" />

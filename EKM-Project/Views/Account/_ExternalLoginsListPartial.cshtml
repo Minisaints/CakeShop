@@ -1,7 +1,6 @@
 ﻿@model EKM_Project.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0) {

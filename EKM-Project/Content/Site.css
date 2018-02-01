@@ -4,25 +4,22 @@
     background-color:whitesmoke;
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
 .dl-horizontal dt {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
 }
+
+/********************NavigationBar********************/
 
 .navbar-inverse {
     background-color: #17437F;
@@ -60,7 +57,7 @@ textarea {
     .navbar > .container .navbar-brand { margin-left: 0px; }
 }
 
-/************************LOGIN***********************/
+/***********************LOGIN**********************/
 
 .centerLogin {
     display: inline-block;
@@ -87,9 +84,6 @@ textarea {
     box-shadow: 0px 2px 66px -16px rgba(0,0,0,0.75);
 }
 
-.btn-block {
-    display: initial;
-}
 
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
     float: none;
@@ -100,4 +94,45 @@ label {
     font-size: 18px !important;
     font-weight: normal;
     font-family: Calibri;
+}
+
+/*********************Register***********************/
+
+.pageRegister {
+    float: left !important;
+    font-size: 26px;
+}
+
+.centerRegister {
+    display: inline-block;
+    display: table;
+    margin: auto;
+}
+
+.jumbotron-register {
+    margin-top: 50px;
+    padding-top: 30px;
+    text-align: center;
+    padding-bottom: 40px;
+    border: 1px solid #888;
+}
+
+.alert ul {
+    font-size: 12px;
+    list-style-type: none !important;
+    width:155px;
+}
+
+.alert {
+    padding: 10px;
+}
+
+.form-horizontal .control-label, .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline {
+    padding-top: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.btn-block {
+    display: initial;
 }
