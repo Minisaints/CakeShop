@@ -24,6 +24,6 @@ The shopping basket can be populated with cakes, with total prices and ability t
 [ ]Major refactoring of CSS.<br />
 [ ]Store card details and possibly link to logged in account for future use.<br />
 
-<img src="https://i.gyazo.com/cc9b1a3ff70b32d1f7a6a7127d91a2c1.png"/>
+<img src="https://i.gyazo.com/ba83e92ce7b1cbeb4868786c7977e370.jpg"/>
 <img src="https://i.imgur.com/gkbcQPa.png"/>
 <img src="https://i.imgur.com/cWTmhAR.png"/>
