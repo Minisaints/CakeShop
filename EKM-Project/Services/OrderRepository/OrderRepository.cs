@@ -1,6 +1,7 @@
 ﻿using EKM_Project.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace EKM_Project.Services.OrderRepository
@@ -34,7 +35,7 @@ namespace EKM_Project.Services.OrderRepository
 
         public IEnumerable<Order> GetOrders(string id)
         {
-            return _context.Orders.Where(c => c.CustomerAccountId == id);
+            return _context.Orders.Where(c => c.CustomerAccountId == id).Include(c => c.Cake).Include(c => c.Customer);
         }
     }
 }

@@ -39,10 +39,14 @@ namespace EKM_Project.Controllers.api
 
         [HttpGet]
         [Route("api/orders/{id}")]
-        public IHttpActionResult GetOrders(int id)
+        public IHttpActionResult GetOrders(string id)
         {
+            var result = _repository.GetOrders(id);
 
-            return Ok();
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
         }
 
     }
