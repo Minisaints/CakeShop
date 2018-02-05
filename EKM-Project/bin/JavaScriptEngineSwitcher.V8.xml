@@ -108,7 +108,7 @@
         </member>
         <member name="F:JavaScriptEngineSwitcher.V8.V8JsEngine._v8ScriptItemInvokeMethodInfo">
             <summary>
-            Information about `InvokeMethod` method of `Microsoft.ClearScript.V8.V8ScriptItem` type
+            Information about <code>InvokeMethod</code> method of <see cref="T:Microsoft.ClearScript.V8.V8ScriptItem"/> class
             </summary>
         </member>
         <member name="F:JavaScriptEngineSwitcher.V8.V8JsEngine._errorStringRegex">

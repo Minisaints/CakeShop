@@ -116,6 +116,31 @@
             Destructs an instance of adapter for the ChakraCore JS engine
             </summary>
         </member>
+        <member name="M:JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine.AddReferenceToValue(JavaScriptEngineSwitcher.ChakraCore.JsRt.JsValue)">
+            <summary>
+            Adds a reference to the value
+            </summary>
+            <param name="value">The value</param>
+        </member>
+        <member name="M:JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine.RemoveReferenceToValue(JavaScriptEngineSwitcher.ChakraCore.JsRt.JsValue)">
+            <summary>
+            Removes a reference to the value
+            </summary>
+            <param name="value">The value</param>
+        </member>
+        <member name="M:JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine.CanHaveReferences(JavaScriptEngineSwitcher.ChakraCore.JsRt.JsValue)">
+            <summary>
+            Checks whether the value can have references
+            </summary>
+            <param name="value">The value</param>
+            <returns>Result of check (true - may have; false - may not have)</returns>
+        </member>
+        <member name="M:JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine.CreateJsScope">
+            <summary>
+            Creates a instance of JS scope
+            </summary>
+            <returns>Instance of JS scope</returns>
+        </member>
         <member name="M:JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine.MapToScriptType(System.Object)">
             <summary>
             Makes a mapping of value from the host type to a script type
@@ -143,25 +168,6 @@
             </summary>
             <param name="args">The source array</param>
             <returns>The mapped array</returns>
-        </member>
-        <member name="M:JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine.AddReferenceToValue(JavaScriptEngineSwitcher.ChakraCore.JsRt.JsValue)">
-            <summary>
-            Adds a reference to the value
-            </summary>
-            <param name="value">The value</param>
-        </member>
-        <member name="M:JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine.RemoveReferenceToValue(JavaScriptEngineSwitcher.ChakraCore.JsRt.JsValue)">
-            <summary>
-            Removes a reference to the value
-            </summary>
-            <param name="value">The value</param>
-        </member>
-        <member name="M:JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine.CanHaveReferences(JavaScriptEngineSwitcher.ChakraCore.JsRt.JsValue)">
-            <summary>
-            Checks whether the value can have references
-            </summary>
-            <param name="value">The value</param>
-            <returns>Result of check (true - may have; false - may not have)</returns>
         </member>
         <member name="M:JavaScriptEngineSwitcher.ChakraCore.ChakraCoreJsEngine.Dispose">
             <summary>
@@ -261,6 +267,9 @@
             <summary>
             Reflection helpers
             </summary>
+        </member>
+        <member name="P:JavaScriptEngineSwitcher.ChakraCore.Helpers.ReflectionHelpers.MethodWithMetadata.CompatibilityScore">
+            TODO: In future will need to change type to <code>double</code>
         </member>
         <member name="T:JavaScriptEngineSwitcher.ChakraCore.JsEngineFactoryCollectionExtensions">
             <summary>

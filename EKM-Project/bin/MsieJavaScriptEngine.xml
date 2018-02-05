@@ -9,19 +9,19 @@
             Error code
             </summary>
         </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptException._errorWCode">
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptException._category">
             <summary>
-            WCode
+            Category of error
+            </summary>
+        </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptException._description">
+            <summary>
+            Description of error
             </summary>
         </member>
         <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptException._sourceContext">
             <summary>
             Application specific source context
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptException._subcategory">
-            <summary>
-            Subcategory of error
             </summary>
         </member>
         <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptException._lineNumber">
@@ -34,7 +34,7 @@
             Column number on which the error occurred
             </summary>
         </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptException._sourceError">
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptException._sourceFragment">
             <summary>
             Content of the line on which the error occurred
             </summary>
@@ -44,19 +44,19 @@
             Gets or sets a error code
             </summary>
         </member>
-        <member name="P:MsieJavaScriptEngine.ActiveScript.ActiveScriptException.ErrorWCode">
+        <member name="P:MsieJavaScriptEngine.ActiveScript.ActiveScriptException.Category">
             <summary>
-            Gets or sets a WCode
+            Gets or sets a category of error
+            </summary>
+        </member>
+        <member name="P:MsieJavaScriptEngine.ActiveScript.ActiveScriptException.Description">
+            <summary>
+            Gets or sets a description of error
             </summary>
         </member>
         <member name="P:MsieJavaScriptEngine.ActiveScript.ActiveScriptException.SourceContext">
             <summary>
             Gets or sets a application specific source context
-            </summary>
-        </member>
-        <member name="P:MsieJavaScriptEngine.ActiveScript.ActiveScriptException.Subcategory">
-            <summary>
-            Gets or sets a subcategory of error
             </summary>
         </member>
         <member name="P:MsieJavaScriptEngine.ActiveScript.ActiveScriptException.LineNumber">
@@ -69,7 +69,7 @@
             Gets or sets a column number on which the error occurred
             </summary>
         </member>
-        <member name="P:MsieJavaScriptEngine.ActiveScript.ActiveScriptException.SourceError">
+        <member name="P:MsieJavaScriptEngine.ActiveScript.ActiveScriptException.SourceFragment">
             <summary>
             Gets or sets a content of the line on which the error occurred
             </summary>
@@ -177,6 +177,11 @@
             Next source context
             </summary>
         </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase._errorCategoryNamePrefix">
+            <summary>
+            Prefix of error category name
+            </summary>
+        </member>
         <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.#ctor(MsieJavaScriptEngine.JsEngineMode,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Constructs an instance of the Active Script engine
@@ -227,6 +232,13 @@
             </summary>
             <param name="args">The source array</param>
             <returns>The mapped array</returns>
+        </member>
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.ShortenErrorCategoryName(System.String)">
+            <summary>
+            Shortens a name of error category
+            </summary>
+            <param name="categoryName">Name of error category</param>
+            <returns>Short name of error category</returns>
         </member>
         <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.StartDebugging">
             <summary>
@@ -326,103 +338,158 @@
             </summary>
             <param name="jsEngine">Active Script engine</param>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.ScriptSite.GetErrorDetails(MsieJavaScriptEngine.ActiveScript.IActiveScriptError)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.ScriptSite.CreateActiveScriptException(MsieJavaScriptEngine.ActiveScript.IActiveScriptError)">
+            <summary>
+            Creates a instance of <see cref="T:MsieJavaScriptEngine.ActiveScript.ActiveScriptException"/>
+            </summary>
+            <param name="error">Instance of <see cref="T:MsieJavaScriptEngine.ActiveScript.IActiveScriptError"/></param>
+            <returns>Instance of <see cref="T:MsieJavaScriptEngine.ActiveScript.ActiveScriptException"/></returns>
+        </member>
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.ScriptSite.IsSyntaxError(System.Int32)">
+            <summary>
+            Checks whether the specified HRESULT value is syntax error
+            </summary>
+            <param name="hResult">The HRESULT value</param>
+            <returns>Result of check (true - is syntax error; false - is not syntax error)</returns>
+        </member>
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.ScriptSite.GetErrorDetails(System.String,System.String,System.Boolean,System.UInt32,System.UInt32,System.Int32)">
             <summary>
             Gets a error details
             </summary>
-            <param name="error">Instance of Active Script error</param>
+            <param name="category">Category of error</param>
+            <param name="description">Description of error</param>
+            <param name="isSyntaxError">Value indicating whether this exception is syntax error</param>
+            <param name="sourceContext">Application specific source context</param>
+            <param name="lineNumber">Line number</param>
+            <param name="columnNumber">Column number</param>
             <returns>Error details</returns>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.ScriptSite.GetErrorLocation(MsieJavaScriptEngine.ActiveScript.IActiveScriptError)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.ScriptSite.TryWriteErrorLocation(System.Text.StringBuilder,System.UInt32,System.Int32)">
             <summary>
-            Gets a error location
+            Writes a information about error location to the buffer.
+            A return value indicates whether the writing succeeded.
             </summary>
-            <param name="error">Instance of Active Script error</param>
-            <returns>Error location</returns>
+            <param name="buffer">Instance of <see cref="T:System.Text.StringBuilder"/></param>
+            <param name="lineNumber">Line number</param>
+            <param name="columnNumber">Column number</param>
+            <returns>true if the writing was successful; otherwise, false</returns>
         </member>
-        <member name="T:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.ScriptSite.TryWriteFullErrorLocation(System.Text.StringBuilder,System.UInt32,System.UInt32,System.Int32)">
             <summary>
-            Active Script wrapper
+            Writes a information about full error location to the buffer.
+            A return value indicates whether the writing succeeded.
             </summary>
+            <param name="buffer">Instance of <see cref="T:System.Text.StringBuilder"/></param>
+            <param name="sourceContext">Application specific source context</param>
+            <param name="lineNumber">Line number</param>
+            <param name="columnNumber">Column number</param>
+            <returns>true if the writing was successful; otherwise, false</returns>
         </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._is64Bit">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptJsEngineBase.ScriptSite.TryWriteStackTrace(System.Text.StringBuilder)">
             <summary>
-            Flag that the current process is a 64-bit process
+            Writes a string representation of the script call stack to the buffer.
+            A return value indicates whether the writing succeeded.
             </summary>
+            <param name="buffer">Instance of <see cref="T:System.Text.StringBuilder"/></param>
+            <returns>true if the writing was successful; otherwise, false</returns>
         </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._pActiveScript">
+        <member name="T:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper32">
             <summary>
-            Pointer to an instance of Active Script engine
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._pActiveScriptParse32">
-            <summary>
-            Pointer to an instance of 32-bit Active Script parser
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._pActiveScriptParse64">
-            <summary>
-            Pointer to an instance of 64-bit Active Script parser
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._pActiveScriptDebug32">
-            <summary>
-            Pointer to an instance of 32-bit Active Script debugger
+            32-bit Active Script wrapper
             </summary>
         </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._pActiveScriptDebug64">
-            <summary>
-            Pointer to an instance of 64-bit Active Script debugger
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._pActiveScriptGarbageCollector">
-            <summary>
-            Pointer to an instance of Active Script garbage collector
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._activeScript">
-            <summary>
-            Instance of Active Script engine
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._activeScriptParse32">
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper32._activeScriptParse32">
             <summary>
             Instance of 32-bit Active Script parser
             </summary>
         </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._activeScriptParse64">
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper32._activeScriptDebug32">
+            <summary>
+            Instance of 32-bit Active Script debugger
+            </summary>
+        </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper32._debugStackFrameSniffer32">
+            <summary>
+            Instance of 32-bit debug stack frame sniffer
+            </summary>
+        </member>
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper32.#ctor(MsieJavaScriptEngine.JsEngineMode,System.Boolean)">
+            <summary>
+            Constructs an instance of the 32-bit Active Script wrapper
+            </summary>
+            <param name="engineMode">JS engine mode</param>
+            <param name="enableDebugging">Flag for whether to enable script debugging features</param>
+        </member>
+        <member name="T:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper64">
+            <summary>
+            64-bit Active Script wrapper
+            </summary>
+        </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper64._activeScriptParse64">
             <summary>
             Instance of 64-bit Active Script parser
             </summary>
         </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._activeScriptGarbageCollector">
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper64._activeScriptDebug64">
+            <summary>
+            Instance of 64-bit Active Script debugger
+            </summary>
+        </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper64._debugStackFrameSniffer64">
+            <summary>
+            Instance of 64-bit debug stack frame sniffer
+            </summary>
+        </member>
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper64.#ctor(MsieJavaScriptEngine.JsEngineMode,System.Boolean)">
+            <summary>
+            Constructs an instance of the 64-bit Active Script wrapper
+            </summary>
+            <param name="engineMode">JS engine mode</param>
+            <param name="enableDebugging">Flag for whether to enable script debugging features</param>
+        </member>
+        <member name="T:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase">
+            <summary>
+            Base class of the Active Script wrapper
+            </summary>
+        </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase._engineMode">
+            <summary>
+            JS engine mode
+            </summary>
+        </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase._enableDebugging">
+            <summary>
+            Flag for whether to enable script debugging features
+            </summary>
+        </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase._pActiveScript">
+            <summary>
+            Pointer to an instance of Active Script engine
+            </summary>
+        </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase._activeScript">
+            <summary>
+            Instance of Active Script engine
+            </summary>
+        </member>
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase._activeScriptGarbageCollector">
             <summary>
             Instance of Active Script garbage collector
             </summary>
         </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._lastException">
-            <summary>
-            Last COM exception
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper._disposedFlag">
+        <member name="F:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase._disposedFlag">
             <summary>
             Flag that object is destroyed
             </summary>
         </member>
-        <member name="P:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.LastException">
-            <summary>
-            Gets a last COM exception
-            </summary>
-        </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.#ctor(System.String,MsieJavaScriptEngine.ActiveScript.ScriptLanguageVersion)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.#ctor(MsieJavaScriptEngine.JsEngineMode,System.Boolean)">
             <summary>
             Constructs an instance of the Active Script wrapper
             </summary>
-            <param name="clsid">CLSID of script engine</param>
-            <param name="languageVersion">Version of script language</param>
+            <param name="engineMode">JS engine mode</param>
+            <param name="enableDebugging">Flag for whether to enable script debugging features</param>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.SetScriptSite(MsieJavaScriptEngine.ActiveScript.IActiveScriptSite)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.SetScriptSite(MsieJavaScriptEngine.ActiveScript.IActiveScriptSite)">
             <summary>
             Informs the scripting engine of the <see cref="T:MsieJavaScriptEngine.ActiveScript.IActiveScriptSite"/> interface site
             provided by the host. Call this method before any other <see cref="T:MsieJavaScriptEngine.ActiveScript.IActiveScript"/>
@@ -432,7 +499,7 @@
             of the scripting engine. The site must be uniquely assigned to this scripting engine
             instance; it cannot be shared with other scripting engines.</param>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.SetScriptState(MsieJavaScriptEngine.ActiveScript.ScriptState)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.SetScriptState(MsieJavaScriptEngine.ActiveScript.ScriptState)">
             <summary>
             Puts the scripting engine into the given state. This method can be called from non-base
             threads without resulting in a non-base callout to host objects or to the
@@ -440,7 +507,7 @@
             </summary>
             <param name="state">Sets the scripting engine to the given state</param>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.AddNamedItem(System.String,MsieJavaScriptEngine.ActiveScript.ScriptItemFlags)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.AddNamedItem(System.String,MsieJavaScriptEngine.ActiveScript.ScriptItemFlags)">
             <summary>
             Adds the name of a root-level item to the scripting engine's name space. A root-level item
             is an object with properties and methods, an event source, or all three.
@@ -449,7 +516,7 @@
             and persistable</param>
             <param name="flags">Flags associated with an item</param>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.GetScriptDispatch(System.String,System.Object@)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.GetScriptDispatch(System.String,System.Object@)">
             <summary>
             Retrieves the IDispatch interface for the methods and properties associated
             with the currently running script
@@ -462,12 +529,12 @@
             <param name="dispatch">The object associated with the script's global methods and
             properties. If the scripting engine does not support such an object, null is returned.</param>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.InitNew">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.InitNew">
             <summary>
             Initializes the scripting engine
             </summary>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.ParseScriptText(System.String,System.String,System.Object,System.String,System.UIntPtr,System.UInt32,MsieJavaScriptEngine.ActiveScript.ScriptTextFlags)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.ParseScriptText(System.String,System.String,System.Object,System.String,System.UIntPtr,System.UInt32,MsieJavaScriptEngine.ActiveScript.ScriptTextFlags)">
             <summary>
             Parses the given code scriptlet, adding declarations into the namespace and
             evaluating code as appropriate
@@ -498,7 +565,7 @@
             <returns>The results of scriptlet processing, or null if the caller expects no
             result (that is, the <see cref="F:MsieJavaScriptEngine.ActiveScript.ScriptTextFlags.IsExpression"/> value is not set)</returns>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.EnumCodeContextsOfPosition(System.UIntPtr,System.UInt32,System.UInt32,MsieJavaScriptEngine.ActiveScript.Debugging.IEnumDebugCodeContexts@)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.EnumCodeContextsOfPosition(System.UIntPtr,System.UInt32,System.UInt32,MsieJavaScriptEngine.ActiveScript.Debugging.IEnumDebugCodeContexts@)">
             <summary>
             Used by a smart host to delegate the <see cref="M:MsieJavaScriptEngine.ActiveScript.Debugging.IDebugDocumentContext.EnumCodeContexts(MsieJavaScriptEngine.ActiveScript.Debugging.IEnumDebugCodeContexts@)"/> method
             </summary>
@@ -509,13 +576,13 @@
             <param name="length">Number of characters in this context</param>
             <param name="enumContexts">An enumerator of the code contexts in the specified range</param>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.CollectGarbage(MsieJavaScriptEngine.ActiveScript.ScriptGCType)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.CollectGarbage(MsieJavaScriptEngine.ActiveScript.ScriptGCType)">
             <summary>
             The Active Script host calls this method to start garbage collection
             </summary>
             <param name="type">The type of garbage collection</param>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper.Dispose">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapperBase.Dispose">
             <summary>
             Destroys object
             </summary>
@@ -856,7 +923,7 @@
             Gets a script text
             </summary>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.Debugging.DebugDocument.#ctor(MsieJavaScriptEngine.ActiveScript.ActiveScriptWrapper,MsieJavaScriptEngine.ActiveScript.Debugging.DebugApplicationWrapper,System.UIntPtr,System.String,System.String)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.Debugging.DebugDocument.#ctor(MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper,MsieJavaScriptEngine.ActiveScript.Debugging.DebugApplicationWrapper,System.UIntPtr,System.String,System.String)">
             <summary>
             Constructs an instance of the debug document
             </summary>
@@ -1086,6 +1153,7 @@
             <param name="offset">Character offset relative to start of script text</param>
             <param name="length">Number of characters in this context</param>
             <param name="enumContexts">An enumerator of the code contexts in the specified range</param>
+            <returns>The method returns an HRESULT</returns>
         </member>
         <member name="T:MsieJavaScriptEngine.ActiveScript.Debugging.IActiveScriptDebug64">
             <summary>
@@ -1122,6 +1190,7 @@
             <param name="offset">Character offset relative to start of script text</param>
             <param name="length">Number of characters in this context</param>
             <param name="enumContexts">An enumerator of the code contexts in the specified range</param>
+            <returns>The method returns an HRESULT</returns>
         </member>
         <member name="T:MsieJavaScriptEngine.ActiveScript.Debugging.IActiveScriptErrorDebug">
             <summary>
@@ -2023,6 +2092,32 @@
             </summary>
             <param name="enumFrames">Enumerator of stack frames for the current thread</param>
         </member>
+        <member name="T:MsieJavaScriptEngine.ActiveScript.Debugging.IDebugStackFrameSnifferEx32">
+            <summary>
+            Provides a way to enumerate the logical stack frames known by a component. Script engines typically
+            implement this interface. The process debug manager uses this interface to find all stack frames
+            associated with a given thread.
+            </summary>
+        </member>
+        <member name="M:MsieJavaScriptEngine.ActiveScript.Debugging.IDebugStackFrameSnifferEx32.EnumStackFrames(MsieJavaScriptEngine.ActiveScript.Debugging.IEnumDebugStackFrames@)">
+            <summary>
+            Returns an enumerator of stack frames for the current thread
+            </summary>
+            <param name="enumFrames">Enumerator of stack frames for the current thread</param>
+        </member>
+        <member name="T:MsieJavaScriptEngine.ActiveScript.Debugging.IDebugStackFrameSnifferEx64">
+            <summary>
+            Provides a way to enumerate the logical stack frames known by a component. Script engines typically
+            implement this interface. The process debug manager uses this interface to find all stack frames
+            associated with a given thread.
+            </summary>
+        </member>
+        <member name="M:MsieJavaScriptEngine.ActiveScript.Debugging.IDebugStackFrameSnifferEx64.EnumStackFrames(MsieJavaScriptEngine.ActiveScript.Debugging.IEnumDebugStackFrames@)">
+            <summary>
+            Returns an enumerator of stack frames for the current thread
+            </summary>
+            <param name="enumFrames">Enumerator of stack frames for the current thread</param>
+        </member>
         <member name="T:MsieJavaScriptEngine.ActiveScript.Debugging.IDebugSyncOperation">
             <summary>
             Allows a script engine to abstract an operation (such as expression evaluation) that needs to be
@@ -2091,7 +2186,7 @@
             Enumerates the stack frames corresponding to a thread
             </summary>
         </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.Debugging.IEnumDebugStackFrames.Next(System.UInt32,MsieJavaScriptEngine.ActiveScript.Debugging.DebugStackFrameDescriptor[]@,System.UInt32@)">
+        <member name="M:MsieJavaScriptEngine.ActiveScript.Debugging.IEnumDebugStackFrames.Next(System.UInt32,MsieJavaScriptEngine.ActiveScript.Debugging.DebugStackFrameDescriptor@,System.UInt32@)">
             <summary>
             Retrieves a specified number of segments in the enumeration sequence
             </summary>
@@ -2844,8 +2939,9 @@
         </member>
         <member name="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper.SetScriptSite(MsieJavaScriptEngine.ActiveScript.IActiveScriptSite)">
             <summary>
-            Informs the scripting engine of the IActiveScriptSite interface site provided by the host.
-            Call this method before any other IActiveScript interface methods is used
+            Informs the scripting engine of the <see cref="T:MsieJavaScriptEngine.ActiveScript.IActiveScriptSite"/> interface site
+            provided by the host. Call this method before any other <see cref="T:MsieJavaScriptEngine.ActiveScript.IActiveScript"/>
+            interface methods is used.
             </summary>
             <param name="site">The host-supplied script site to be associated with this instance
             of the scripting engine. The site must be uniquely assigned to this scripting engine
@@ -2854,15 +2950,15 @@
         <member name="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper.SetScriptState(MsieJavaScriptEngine.ActiveScript.ScriptState)">
             <summary>
             Puts the scripting engine into the given state. This method can be called from non-base
-            threads without resulting in a non-base callout to host objects or to the IActiveScriptSite
-            interface.
+            threads without resulting in a non-base callout to host objects or to the
+            <see cref="T:MsieJavaScriptEngine.ActiveScript.IActiveScriptSite"/> interface.
             </summary>
             <param name="state">Sets the scripting engine to the given state</param>
         </member>
         <member name="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper.AddNamedItem(System.String,MsieJavaScriptEngine.ActiveScript.ScriptItemFlags)">
             <summary>
             Adds the name of a root-level item to the scripting engine's name space. A root-level item
-            is an object with properties and methods, an event source, or all three
+            is an object with properties and methods, an event source, or all three.
             </summary>
             <param name="name">The name of the item as viewed from the script. The name must be unique
             and persistable</param>
@@ -2870,65 +2966,21 @@
         </member>
         <member name="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper.GetScriptDispatch(System.String,System.Object@)">
             <summary>
-            Retrieves the IDispatch interface for the methods and properties associated with the
-            currently running script
+            Retrieves the IDispatch interface for the methods and properties associated
+            with the currently running script
             </summary>
             <param name="itemName">The name of the item for which the caller needs the associated
-            dispatch object. If this parameter is NULL, the dispatch object contains as its members
-            all of the global methods and properties defined by the script. Through the IDispatch
-            interface and the associated ITypeInfo interface, the host can invoke script methods
-            or view and modify script variables.</param>
+            dispatch object. If this parameter is null, the dispatch object contains as its members
+            all of the global methods and properties defined by the script. Through the
+            IDispatch interface and the associated <see cref="T:System.Runtime.InteropServices.ComTypes.ITypeInfo"/> interface, the host can
+            invoke script methods or view and modify script variables.</param>
             <param name="dispatch">The object associated with the script's global methods and
-            properties. If the scripting engine does not support such an object, NULL is returned.</param>
+            properties. If the scripting engine does not support such an object, null is returned.</param>
         </member>
         <member name="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper.InitNew">
             <summary>
-            Initializes the scripting engine.
+            Initializes the scripting engine
             </summary>
-        </member>
-        <member name="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper.AddScriptlet(System.String,System.String,System.String,System.String,System.String,System.String,System.IntPtr,System.UInt32,MsieJavaScriptEngine.ActiveScript.ScriptTextFlags)">
-            <summary>
-            Adds a code scriptlet to the script. This method is used in environments where the
-            persistent state of the script is intertwined with the host document and the host
-            is responsible for restoring the script, rather than through an IPersist* interface.
-            The primary examples are HTML scripting languages that allow scriptlets of code
-            embedded in the HTML document to be attached to intrinsic events (for instance,
-            ONCLICK="button1.text='Exit'").
-            </summary>
-            <param name="defaultName">The default name to associate with the scriptlet. If the
-            scriptlet does not contain naming information (as in the ONCLICK example above),
-            this name will be used to identify the scriptlet. If this parameter is NULL, the
-            scripting engine manufactures a unique name, if necessary.</param>
-            <param name="code">The scriptlet text to add. The interpretation of this string
-            depends on the scripting language</param>
-            <param name="itemName">The item name associated with this scriptlet. This parameter,
-            in addition to pstrSubItemName, identifies the object for which the scriptlet is
-            an event handler</param>
-            <param name="subItemName">The name of a subobject of the named item with which this
-            scriptlet is associated; this name must be found in the named item's type
-            information. This parameter is NULL if the scriptlet is to be associated with the
-            named item instead of a subitem. This parameter, in addition to pstrItemName,
-            identifies the specific object for which the scriptlet is an event handler.</param>
-            <param name="eventName">The name of the event for which the scriptlet is an event
-            handler</param>
-            <param name="delimiter">The end-of-scriptlet delimiter. When the pstrCode parameter
-            is parsed from a stream of text, the host typically uses a delimiter, such as two
-            single quotation marks (''), to detect the end of the scriptlet. This parameter
-            specifies the delimiter that the host used, allowing the scripting engine to
-            provide some conditional primitive preprocessing (for example, replacing a single
-            quotation mark ['] with two single quotation marks for use as a delimiter).
-            Exactly how (and if) the scripting engine makes use of this information depends
-            on the scripting engine. Set this parameter to NULL if the host did not use a
-            delimiter to mark the end of the scriptlet.</param>
-            <param name="sourceContextCookie">Application-defined value that is used for
-            debugging purposes</param>
-            <param name="startingLineNumber">Zero-based value that specifies which line the
-            parsing will begin at</param>
-            <param name="flags">Flags associated with the scriptlet.</param>
-            <returns>Actual name used to identify the scriptlet. This is to be in
-            order of preference: a name explicitly specified in the scriptlet text, the
-            default name provided in pstrDefaultName, or a unique name synthesized by the
-            scripting engine</returns>
         </member>
         <member name="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper.ParseScriptText(System.String,System.String,System.Object,System.String,System.UIntPtr,System.UInt32,MsieJavaScriptEngine.ActiveScript.ScriptTextFlags)">
             <summary>
@@ -2938,32 +2990,43 @@
             <param name="code">The scriptlet text to evaluate. The interpretation of this
             string depends on the scripting language</param>
             <param name="itemName">The item name that gives the context in which the
-            scriptlet is to be evaluated. If this parameter is NULL, the code is evaluated
-            in the scripting engine's global context.</param>
+            scriptlet is to be evaluated. If this parameter is null, the code is evaluated
+            in the scripting engine's global context</param>
             <param name="context">The context object. This object is reserved for use in a
             debugging environment, where such a context may be provided by the debugger to
-            represent an active run-time context. If this parameter is NULL, the engine
-            uses pstrItemName to identify the context</param>
-            <param name="delimiter">The end-of-scriptlet delimiter. When pstrCode is parsed
-            from a stream of text, the host typically uses a delimiter, such as two single
-            quotation marks (''), to detect the end of the scriptlet. This parameter specifies
-            the delimiter that the host used, allowing the scripting engine to provide some
-            conditional primitive preprocessing (for example, replacing a single quotation
+            represent an active run-time context. If this parameter is null, the engine
+            uses <paramref name="itemName"/> to identify the context.</param>
+            <param name="delimiter">The end-of-scriptlet delimiter. When <paramref name="code"/>
+            is parsed from a stream of text, the host typically uses a delimiter, such as two
+            single quotation marks (''), to detect the end of the scriptlet. This parameter
+            specifies the delimiter that the host used, allowing the scripting engine to provide
+            some conditional primitive preprocessing (for example, replacing a single quotation
             mark ['] with two single quotation marks for use as a delimiter). Exactly how
             (and if) the scripting engine makes use of this information depends on the
-            scripting engine. Set this parameter to NULL if the host did not use a delimiter
+            scripting engine. Set this parameter to null if the host did not use a delimiter
             to mark the end of the scriptlet.</param>
             <param name="sourceContextCookie">Application-defined value that is used for
             debugging purposes</param>
             <param name="startingLineNumber">Zero-based value that specifies which line the
             parsing will begin at</param>
             <param name="flags">Flags associated with the scriptlet</param>
-            <returns>The results of scriptlet processing, or NULL if the caller
-            expects no result (that is, the SCRIPTTEXT_ISEXPRESSION value is not set)</returns>
+            <returns>The results of scriptlet processing, or null if the caller expects no
+            result (that is, the <see cref="F:MsieJavaScriptEngine.ActiveScript.ScriptTextFlags.IsExpression"/> value is not set)</returns>
+        </member>
+        <member name="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper.EnumCodeContextsOfPosition(System.UIntPtr,System.UInt32,System.UInt32,MsieJavaScriptEngine.ActiveScript.Debugging.IEnumDebugCodeContexts@)">
+            <summary>
+            Used by a smart host to delegate the <see cref="M:MsieJavaScriptEngine.ActiveScript.Debugging.IDebugDocumentContext.EnumCodeContexts(MsieJavaScriptEngine.ActiveScript.Debugging.IEnumDebugCodeContexts@)"/> method
+            </summary>
+            <param name="sourceContext">The source context as provided to
+            <see cref="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptParse32.ParseScriptText(System.String,System.String,System.Object,System.String,System.UIntPtr,System.UInt32,MsieJavaScriptEngine.ActiveScript.ScriptTextFlags,System.Object@,System.Runtime.InteropServices.ComTypes.EXCEPINFO@)"/> or
+            <see cref="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptParse32.AddScriptlet(System.String,System.String,System.String,System.String,System.String,System.String,System.IntPtr,System.UInt32,MsieJavaScriptEngine.ActiveScript.ScriptTextFlags,System.String@,System.Runtime.InteropServices.ComTypes.EXCEPINFO@)"/></param>
+            <param name="offset">Character offset relative to start of script text</param>
+            <param name="length">Number of characters in this context</param>
+            <param name="enumContexts">An enumerator of the code contexts in the specified range</param>
         </member>
         <member name="M:MsieJavaScriptEngine.ActiveScript.IActiveScriptWrapper.CollectGarbage(MsieJavaScriptEngine.ActiveScript.ScriptGCType)">
             <summary>
-            Starts a garbage collection
+            The Active Script host calls this method to start garbage collection
             </summary>
             <param name="type">The type of garbage collection</param>
         </member>
@@ -3295,6 +3358,30 @@
             </summary>
             <param name="jsRuntimeException">JavaScript runtime exception</param>
             <returns>Detailed error message</returns>
+        </member>
+        <member name="M:MsieJavaScriptEngine.Helpers.JsErrorHelpers.WriteErrorLocation(System.Text.StringBuilder,System.String)">
+            <summary>
+            Writes a information about error location to the buffer
+            </summary>
+            <param name="buffer">Instance of <see cref="T:System.Text.StringBuilder"/></param>
+            <param name="documentName">Document name</param>
+        </member>
+        <member name="M:MsieJavaScriptEngine.Helpers.JsErrorHelpers.WriteErrorLocation(System.Text.StringBuilder,System.Int32,System.Int32)">
+            <summary>
+            Writes a information about error location to the buffer
+            </summary>
+            <param name="buffer">Instance of <see cref="T:System.Text.StringBuilder"/></param>
+            <param name="lineNumber">Line number</param>
+            <param name="columnNumber">Column number</param>
+        </member>
+        <member name="M:MsieJavaScriptEngine.Helpers.JsErrorHelpers.WriteErrorLocation(System.Text.StringBuilder,System.String,System.Int32,System.Int32)">
+            <summary>
+            Writes a information about error location to the buffer
+            </summary>
+            <param name="buffer">Instance of <see cref="T:System.Text.StringBuilder"/></param>
+            <param name="documentName">Document name</param>
+            <param name="lineNumber">Line number</param>
+            <param name="columnNumber">Column number</param>
         </member>
         <member name="T:MsieJavaScriptEngine.Helpers.NumericHelpers">
             <summary>
@@ -3776,6 +3863,16 @@
             <param name="engineMode">JS engine mode</param>
             <param name="enableDebugging">Flag for whether to enable script debugging features</param>
         </member>
+        <member name="M:MsieJavaScriptEngine.JsRt.ChakraJsRtJsEngineBase.GenerateErrorMessageWithLocation(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Generates a error message with location
+            </summary>
+            <param name="category">Error category</param>
+            <param name="message">Error message</param>
+            <param name="lineNumber">Line number</param>
+            <param name="columnNumber">Column number</param>
+            <returns>Error message with location</returns>
+        </member>
         <member name="M:MsieJavaScriptEngine.JsRt.ChakraJsRtJsEngineBase.GetErrorCoordinatesFromMessage(System.String,System.Int32@,System.Int32@)">
             <summary>
             Gets a error coordinates from message
@@ -3891,6 +3988,12 @@
             <param name="value">The value</param>
             <returns>Result of check (true - may have; false - may not have)</returns>
         </member>
+        <member name="M:MsieJavaScriptEngine.JsRt.Edge.ChakraEdgeJsRtJsEngine.CreateJsScope">
+            <summary>
+            Creates a instance of JS scope
+            </summary>
+            <returns>Instance of JS scope</returns>
+        </member>
         <member name="M:MsieJavaScriptEngine.JsRt.Edge.ChakraEdgeJsRtJsEngine.Dispose">
             <summary>
             Destroys object
@@ -3953,14 +4056,6 @@
             <para>
             Requires an active script context.
             </para>
-            </remarks>
-        </member>
-        <member name="P:MsieJavaScriptEngine.JsRt.Edge.EdgeJsContext.IsEnumeratingHeap">
-            <summary>
-            Gets a value indicating whether the heap of the current context is being enumerated
-            </summary>
-            <remarks>
-            Requires an active script context.
             </remarks>
         </member>
         <member name="P:MsieJavaScriptEngine.JsRt.Edge.EdgeJsContext.Runtime">
@@ -4155,46 +4250,6 @@
             <summary>
             Starts debugging in the context
             </summary>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.Edge.EdgeJsContext.StartProfiling(MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback,MsieJavaScriptEngine.JsRt.ProfilerEventMask,System.Int32)">
-            <summary>
-            Starts profiling in the current context
-            </summary>
-            <remarks>
-            Requires an active script context.
-            </remarks>
-            <param name="callback">The profiling callback to use</param>
-            <param name="eventMask">The profiling events to callback with</param>
-            <param name="context">A context to pass to the profiling callback</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.Edge.EdgeJsContext.StopProfiling(System.Int32)">
-            <summary>
-            Stops profiling in the current context
-            </summary>
-            <remarks>
-            <para>
-            Will not return an error if profiling has not started.
-            </para>
-            <para>
-            Requires an active script context.
-            </para>
-            </remarks>
-            <param name="reason">The reason for stopping profiling to pass to the profiler callback</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.Edge.EdgeJsContext.EnumerateHeap">
-            <summary>
-            Enumerates a heap of the current context.
-            </summary>
-            <remarks>
-            <para>
-            While the heap is being enumerated, the current context cannot be removed, and all calls to
-            modify the state of the context will fail until the heap enumerator is released.
-            </para>
-            <para>
-            Requires an active script context.
-            </para>
-            </remarks>
-            <returns>A heap enumerator</returns>
         </member>
         <member name="M:MsieJavaScriptEngine.JsRt.Edge.EdgeJsContext.AddRef">
             <summary>
@@ -5257,79 +5312,6 @@
             “Edge” native methods
             </summary>
         </member>
-        <member name="T:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback">
-            <summary>
-            IActiveScriptProfilerCallback COM interface
-            </summary>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback.Initialize(System.UInt32)">
-            <summary>
-            Called when the profile is started
-            </summary>
-            <param name="context">The context provided when profiling was started</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback.Shutdown(System.UInt32)">
-            <summary>
-            Called when profiling is stopped
-            </summary>
-            <param name="reason">The reason code provided when profiling was stopped</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback.ScriptCompiled(System.Int32,MsieJavaScriptEngine.JsRt.ProfilerScriptType,System.IntPtr)">
-            <summary>
-            Called when a script is compiled
-            </summary>
-            <param name="scriptId">The ID of the script</param>
-            <param name="type">The type of the script</param>
-            <param name="debugDocumentContext">The debug document context, if any</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback.FunctionCompiled(System.Int32,System.Int32,System.String,System.String,System.IntPtr)">
-            <summary>
-            Called when a function is compiled
-            </summary>
-            <param name="functionId">The ID of the function</param>
-            <param name="scriptId">The ID of the script</param>
-            <param name="functionName">The name of the function</param>
-            <param name="functionNameHint">The function name hint</param>
-            <param name="debugDocumentContext">The debug document context, if any</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback.OnFunctionEnter(System.Int32,System.Int32)">
-            <summary>
-            Called when a function is entered
-            </summary>
-            <param name="scriptId">The ID of the script</param>
-            <param name="functionId">The ID of the function</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback.OnFunctionExit(System.Int32,System.Int32)">
-            <summary>
-            Called when a function is exited
-            </summary>
-            <param name="scriptId">The ID of the script</param>
-            <param name="functionId">The ID of the function</param>
-        </member>
-        <member name="T:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback2">
-            <summary>
-            IActiveScriptProfilerCallback2 COM interface
-            </summary>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback2.OnFunctionEnterByName(System.String,MsieJavaScriptEngine.JsRt.ProfilerScriptType)">
-            <summary>
-            Called when a function is entered by name
-            </summary>
-            <param name="functionName">The name of the function</param>
-            <param name="type">The type of the function</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback2.OnFunctionExitByName(System.String,MsieJavaScriptEngine.JsRt.ProfilerScriptType)">
-            <summary>
-            Called when a function is exited by name
-            </summary>
-            <param name="functionName">The name of the function</param>
-            <param name="type">The type of the function</param>
-        </member>
-        <member name="T:MsieJavaScriptEngine.JsRt.IActiveScriptProfilerHeapEnum">
-            <summary>
-            IActiveScriptProfilerHeapEnum COM interface
-            </summary>
-        </member>
         <member name="T:MsieJavaScriptEngine.JsRt.Ie.ChakraIeJsRtJsEngine">
             <summary>
             “IE” JsRT version of Chakra JS engine
@@ -5430,6 +5412,12 @@
             <param name="value">The value</param>
             <returns>Result of check (true - may have; false - may not have)</returns>
         </member>
+        <member name="M:MsieJavaScriptEngine.JsRt.Ie.ChakraIeJsRtJsEngine.CreateJsScope">
+            <summary>
+            Creates a instance of JS scope
+            </summary>
+            <returns>Instance of JS scope</returns>
+        </member>
         <member name="M:MsieJavaScriptEngine.JsRt.Ie.ChakraIeJsRtJsEngine.Dispose">
             <summary>
             Destroys object
@@ -5492,14 +5480,6 @@
             <para>
             Requires an active script context.
             </para>
-            </remarks>
-        </member>
-        <member name="P:MsieJavaScriptEngine.JsRt.Ie.IeJsContext.IsEnumeratingHeap">
-            <summary>
-            Gets a value indicating whether the heap of the current context is being enumerated
-            </summary>
-            <remarks>
-            Requires an active script context.
             </remarks>
         </member>
         <member name="P:MsieJavaScriptEngine.JsRt.Ie.IeJsContext.Runtime">
@@ -5697,46 +5677,6 @@
             Starts debugging in the context
             </summary>
             <param name="debugApplication">The debug application to use for debugging</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.Ie.IeJsContext.StartProfiling(MsieJavaScriptEngine.JsRt.IActiveScriptProfilerCallback,MsieJavaScriptEngine.JsRt.ProfilerEventMask,System.Int32)">
-            <summary>
-            Starts profiling in the current context
-            </summary>
-            <remarks>
-            Requires an active script context.
-            </remarks>
-            <param name="callback">The profiling callback to use</param>
-            <param name="eventMask">The profiling events to callback with</param>
-            <param name="context">The context to pass to the profiling callback</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.Ie.IeJsContext.StopProfiling(System.Int32)">
-            <summary>
-            Stops profiling in the current context
-            </summary>
-            <remarks>
-            <para>
-            Will not return an error if profiling has not started.
-            </para>
-            <para>
-            Requires an active script context.
-            </para>
-            </remarks>
-            <param name="reason">The reason for stopping profiling to pass to the profiler callback</param>
-        </member>
-        <member name="M:MsieJavaScriptEngine.JsRt.Ie.IeJsContext.EnumerateHeap">
-            <summary>
-            Enumerates a heap of the current context
-            </summary>
-            <remarks>
-            <para>
-            While the heap is being enumerated, the current context cannot be removed, and all calls to
-            modify the state of the context will fail until the heap enumerator is released.
-            </para>
-            <para>
-            Requires an active script context.
-            </para>
-            </remarks>
-            <returns>The heap enumerator</returns>
         </member>
         <member name="M:MsieJavaScriptEngine.JsRt.Ie.IeJsContext.AddRef">
             <summary>
@@ -7387,61 +7327,6 @@
             The value is a JavaScript array object value
             </summary>
         </member>
-        <member name="T:MsieJavaScriptEngine.JsRt.ProfilerEventMask">
-            <summary>
-            Event mask for profiling
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.JsRt.ProfilerEventMask.TraceScriptFunctionCall">
-            <summary>
-            Trace calls to script functions
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.JsRt.ProfilerEventMask.TraceNativeFunctionCall">
-            <summary>
-            Trace calls to built-in functions
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.JsRt.ProfilerEventMask.TraceDomFunctionCall">
-            <summary>
-            Trace calls to DOM methods
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.JsRt.ProfilerEventMask.TraceAll">
-            <summary>
-            Trace all calls except DOM methods
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.JsRt.ProfilerEventMask.TraceAllWithDom">
-            <summary>
-            Trace all calls
-            </summary>
-        </member>
-        <member name="T:MsieJavaScriptEngine.JsRt.ProfilerScriptType">
-            <summary>
-            Profiled script type
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.JsRt.ProfilerScriptType.User">
-            <summary>
-            The user script
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.JsRt.ProfilerScriptType.Dynamic">
-            <summary>
-            The dynamic script
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.JsRt.ProfilerScriptType.Native">
-            <summary>
-            The native script
-            </summary>
-        </member>
-        <member name="F:MsieJavaScriptEngine.JsRt.ProfilerScriptType.Dom">
-            <summary>
-            The DOM-related script
-            </summary>
-        </member>
         <member name="T:MsieJavaScriptEngine.JsRuntimeException">
             <summary>
             The exception that is thrown during a execution of code by JS engine
@@ -8184,6 +8069,11 @@
             </summary>
             <returns>A string that represents the current object</returns>
         </member>
+        <member name="T:MsieJavaScriptEngine.Utilities.CharExtensions">
+            <summary>
+            Extensions for Char
+            </summary>
+        </member>
         <member name="T:MsieJavaScriptEngine.Utilities.StringBuilderExtensions">
             <summary>
             Extensions for StringBuilder
@@ -8212,6 +8102,13 @@
             <param name="format">A composite format string</param>
             <param name="args">An array of objects to format</param>
             <returns>Instance of <see cref="T:System.Text.StringBuilder"/></returns>
+        </member>
+        <member name="M:MsieJavaScriptEngine.Utilities.StringBuilderExtensions.TrimEnd(System.Text.StringBuilder)">
+            <summary>
+            Removes the all trailing white-space characters from the current <see cref="T:System.Text.StringBuilder"/> instance
+            </summary>
+            <param name="source">Instance of <see cref="T:System.Text.StringBuilder"/></param>
+            <returns>Instance of <see cref="T:System.Text.StringBuilder"/> without trailing white-space characters</returns>
         </member>
         <member name="T:MsieJavaScriptEngine.Utilities.TypeConverter">
             <summary>

@@ -4,12 +4,6 @@
         Checkout</button>;
 }
 
-const CollapseButton = (props) => {
-    return (
-        <div style={{ fontSize: "28px", fontWeight: "bold", height: "38px", width: "90px", marginRight: "-35px"}}>{props.children}</div>
-        );
-}
-
 const CakeTable = (props) => {
 
     const style = {
@@ -23,7 +17,7 @@ const CakeTable = (props) => {
     };
 
     const cakeList = [...props.cakes];
-    let SearchCount = 0;
+    let searchCount = 0;
     const list = cakeList.map((cake, index) => {
         var base64Icon = "data:image/png;base64," + cake.Image;
         if (cake.CakeName.toLowerCase().includes(props.SearchText)) {
@@ -41,12 +35,12 @@ const CakeTable = (props) => {
                     </div>
                 </div>
             );
-        } else { SearchCount++;}      
+        } else { searchCount++;}      
     });
 
-    if (SearchCount === cakeList.length && cakeList.length > 0) {
+    if (searchCount === cakeList.length && cakeList.length > 0) {
         return <h1>Nothing to display!</h1>;
-    } else if (SearchCount === cakeList.length) {
+    } else if (searchCount === cakeList.length) {
         return <div>Loading..</div>;
     }
 
@@ -128,6 +122,12 @@ class CustomerForm extends React.Component {
             </div>
         );
     }
+}
+
+const ClearBasket = (props) => {
+    return (
+        <button onClick={props.clearBasket} style={{marginTop: "5px", outline: "none"}} className="btn btn-warning btn-sm">Clear Basket</button>
+        );
 }
 
 const OrderSummary = (props) => {
@@ -220,12 +220,18 @@ const OrderBasket = (props) => {
     return (
         <div style={{ marginBottom: "10px", width: "250px", height: "330px", border: "1px solid #444", backgroundColor: "white", position: "absolute", right: "10px", bottom: "0", overflow: "auto", overflowX: "hidden" }}>
             
-            <div onClick={props.togglebasket} style={{ lineHeight: "38px", fontSize: "16px", height: "40px", cursor: "pointer", position: "sticky", width: "inherit", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", borderBottom: "1px solid #444", top: "0"}}><div style={{ display: "flex", alignItems: "center", justifyContent: "center"}}><div style={{width: "70%",  textAlign: "right"}}>Shopping Basket</div><CollapseButton>&times;</CollapseButton></div></div>
+            <div onClick={props.togglebasket} style={{ lineHeight: "38px", fontSize: "16px", height: "40px", cursor: "pointer", position: "sticky", width: "inherit", color: "#fff", backgroundColor: "#246CCC", textAlign: "center", borderBottom: "1px solid #444", top: "0"}}>Shopping Basket</div>
             <div style={{ fontSize: "13px", display: "flex", textAlign: "center", borderBottom: "1px solid #444", marginBottom: "10px" }}><h4 style={{ width: "100%", borderRight: "1px solid #444" }}>Product</h4><h4 style={{ width: "100%" }}>Price</h4></div>
             {noItems}
-            <div style={{ backgroundColor: "#fff", borderTop: "1px solid #444", width: "100%", textAlign: "right", fontSize: "14px", bottom: "0px", position: "sticky"}} ><div style={{paddingRight: "5px"}}>Total Price: £{props.totalprice.toFixed(2)}</div>
+            <div style={{ backgroundColor: "#fff", fontSize: "14px", bottom: "0px", position: "sticky", width: "100%", borderTop: "1px solid #444" }}>
+
+                <div style={{ display: "flex", flexFlow: "row", justifyContent: "space-between" }}>
+                    <div style={{ width: "50%", textAlign: "center", borderRight: "1px solid #444" }}><ClearBasket clearBasket={props.clearBasket} /></div>
+                    <div style={{ paddingRight: "5px", textAlign: "right", width: "40%" }}>Total Price £{props.totalprice.toFixed(2)}</div>
+                </div>
                 {emptyBasket}
             </div>
+                 
         </div>
     );
 };
@@ -416,6 +422,14 @@ class Shop extends React.Component {
         });
     }
 
+    ClearBasketHandler = () => {
+        this.setState({
+            shoppingList: [],
+            totalPrice: 0.00,
+            isBasketEmpty: true
+        });
+    }
+
     PlaceOrder() {
         const orderlist = this.state.shoppingList;
             const customerAccountId = document.getElementById("root").getAttribute("user");     
@@ -473,7 +487,8 @@ render() {
                     isbasketempty={this.state.isBasketEmpty}
                     checkout={this.CheckoutHandler}
                     togglebasket={this.ToggleBasketHandler}
-                    totalprice={this.state.totalPrice} /></div>;
+                    totalprice={this.state.totalPrice}
+                    clearBasket={this.ClearBasketHandler}/></div>;
         } else {
             const OpenOrderSummary = () => {
                 return (
