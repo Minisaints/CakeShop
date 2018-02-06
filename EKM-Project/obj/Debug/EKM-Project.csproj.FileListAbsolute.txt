@@ -377,3 +377,4 @@ E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Proje
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.csproj.CoreCompileInputs.cache
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.dll
 E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.pdb
+E:\Repository-Content\c-sharp\C#\EKM\EKM-Project\EKM-Project\obj\Debug\EKM-Project.csprojResolveAssemblyReference.cache
